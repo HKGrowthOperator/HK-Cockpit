@@ -1,0 +1,12 @@
+﻿.env
+.env.*
+!.env.server.example
+pg_data/
+n8n_data/
+node_modules/
+web/node_modules/
+web/.next/
+web/out/
+web/dist/
+*.log
+.DS_Store
