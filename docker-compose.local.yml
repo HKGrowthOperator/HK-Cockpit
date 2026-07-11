@@ -1,0 +1,64 @@
+# Lokale Version für deinen eigenen Rechner (Mac).
+# Kein Internet/Domain nötig — alles läuft auf deinem Computer.
+# Start:  docker compose -f docker-compose.local.yml up -d
+# Öffnen: http://localhost:3000
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: cockpit
+      POSTGRES_PASSWORD: localpass
+      POSTGRES_DB: cockpit
+    volumes:
+      - ./pg_data:/var/lib/postgresql/data
+      - ./db/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U cockpit -d cockpit"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  n8n:
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DB_TYPE: postgresdb
+      DB_POSTGRESDB_HOST: postgres
+      DB_POSTGRESDB_PORT: 5432
+      DB_POSTGRESDB_DATABASE: n8n
+      DB_POSTGRESDB_USER: cockpit
+      DB_POSTGRESDB_PASSWORD: localpass
+      N8N_ENCRYPTION_KEY: local-dev-key
+      N8N_SECURE_COOKIE: "false"
+      GENERIC_TIMEZONE: Europe/Berlin
+    volumes:
+      - ./n8n_data:/home/node/.n8n
+    ports:
+      - "5678:5678" # die Werkstatt: http://localhost:5678
+
+  web:
+    build: ./web
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://cockpit:localpass@postgres:5432/cockpit
+      AUTH_SECRET: local-dev-secret
+      NODE_ENV: production
+      # KI-Assistent: trage deinen Schlüssel in eine Datei ".env" im Projektordner ein:
+      #   ANTHROPIC_API_KEY=sk-ant-...
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      # Standardmodell (im Chat umschaltbar). Günstiger: claude-haiku-4-5 · stärker: claude-opus-4-8
+      ANTHROPIC_MODEL: ${ANTHROPIC_MODEL:-claude-sonnet-4-6}
+      # Google Drive (optional) — aus deiner eigenen Google-Cloud-App, in die .env eintragen:
+      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+      GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
+      GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI:-http://localhost:3000/api/google/callback}
+    ports:
+      - "3000:3000" # das Dashboard: http://localhost:3000
