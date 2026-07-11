@@ -22,6 +22,10 @@ async function ensureSchema(): Promise<void> {
       updated_at timestamptz NOT NULL DEFAULT now()
     );
     CREATE INDEX IF NOT EXISTS module_items_module_idx ON module_items (module);
+    CREATE TABLE IF NOT EXISTS app_migrations (
+      key        text PRIMARY KEY,
+      applied_at timestamptz NOT NULL DEFAULT now()
+    );
   `);
   // Seed any module whose table slice is still empty (first run only).
   for (const key of MODULE_KEYS) {
@@ -37,6 +41,42 @@ async function ensureSchema(): Promise<void> {
         [key, JSON.stringify(data), pos++],
       );
     }
+  }
+  await migrateAutomationsCatalog();
+}
+
+// Einmalige Migration: Automations-Katalog v2 (31 Stück) ersetzt die alten
+// Seed-Einträge — auch auf Datenbanken, die schon mit den 4 Legacy-Seeds
+// befüllt sind (der Leer-Check oben greift dort nicht). Nur Seed-Datensätze
+// (erkennbar am data.id "aut-…") werden ersetzt; von Hand angelegte Einträge
+// haben kein data.id und bleiben unangetastet.
+async function migrateAutomationsCatalog(): Promise<void> {
+  const MIG_KEY = "automations-catalog-v2-31";
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+    const marked = await client.query(
+      "INSERT INTO app_migrations (key) VALUES ($1) ON CONFLICT (key) DO NOTHING",
+      [MIG_KEY],
+    );
+    if (marked.rowCount === 1) {
+      await client.query(
+        "DELETE FROM module_items WHERE module = 'automations' AND data ? 'id'",
+      );
+      let pos = 0;
+      for (const data of SEEDS.automations ?? []) {
+        await client.query(
+          "INSERT INTO module_items (module, data, position) VALUES ('automations', $1, $2)",
+          [JSON.stringify(data), pos++],
+        );
+      }
+    }
+    await client.query("COMMIT");
+  } catch (err) {
+    await client.query("ROLLBACK").catch(() => {});
+    throw err;
+  } finally {
+    client.release();
   }
 }
 

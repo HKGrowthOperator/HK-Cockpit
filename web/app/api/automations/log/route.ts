@@ -31,6 +31,14 @@ type Body = {
 
 export async function POST(req: Request) {
   const secret = process.env.AUTOMATION_INGEST_SECRET;
+  // Sicher-by-default: In Produktion ohne konfiguriertes Secret bleibt der
+  // Endpoint geschlossen (503) statt offen — der Server ist öffentlich erreichbar.
+  if (!secret && process.env.NODE_ENV === "production") {
+    return NextResponse.json(
+      { error: "Rückkanal nicht konfiguriert (AUTOMATION_INGEST_SECRET fehlt)." },
+      { status: 503 },
+    );
+  }
   if (secret && req.headers.get("x-automation-secret") !== secret) {
     return NextResponse.json({ error: "unauthorized" }, { status: 401 });
   }
