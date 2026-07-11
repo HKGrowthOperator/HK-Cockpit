@@ -20,6 +20,7 @@ const NAV: NavGroup[] = [
   { group: "Betrieb", items: [
     { href: "/sops", label: "SOPs", icon: "list" },
     { href: "/kundenbedienung", label: "Kundenbedienung", icon: "users" },
+    { href: "/rechnungen", label: "Rechnungen", icon: "euro" },
     { href: "/berichte", label: "Berichte", icon: "report" },
     { href: "/automation", label: "Automation", icon: "bolt" },
   ] },
@@ -62,6 +63,7 @@ function Icon({ name }: { name: string }) {
     radar: <><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="4.5" /><path d="M12 12 19 5M12 12v9" /></>,
     library: <><path d="M4 5v14M8 5v14M13 5l4 14" /><path d="M3 19h18" /></>,
     cog: <><circle cx="12" cy="12" r="3" /><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9 17 7M7 17l-2.1 2.1" /></>,
+    euro: <><path d="M15 7a5 5 0 1 0 0 10M4 10h7M4 14h7" /></>,
   };
   return <svg {...common}>{paths[name] ?? null}</svg>;
 }

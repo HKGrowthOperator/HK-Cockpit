@@ -61,6 +61,9 @@ services:
     environment:
       DATABASE_URL: postgres://${POSTGRES_USER:-cockpit}:${POSTGRES_PASSWORD:?bitte in .env setzen}@postgres:5432/${POSTGRES_DB:-cockpit}
       AUTH_SECRET: ${AUTH_SECRET:?bitte in .env setzen}
+      # Rückkanal /api/automations/log: n8n-Workflows melden Läufe ans Cockpit.
+      # Auf dem Server PFLICHT (Endpoint ist ohne Login erreichbar). openssl rand -hex 32
+      AUTOMATION_INGEST_SECRET: ${AUTOMATION_INGEST_SECRET:?bitte in .env setzen}
       NODE_ENV: production
       # KI-Assistent — OPTIONAL. Ohne Schlüssel läuft das Dashboard normal,
       # nur Chat-Assistent + Drive-Import sind deaktiviert.

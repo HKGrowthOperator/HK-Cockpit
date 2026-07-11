@@ -1,7 +1,7 @@
 // lib/modules.ts — zentrale Definition jedes editierbaren Moduls:
 // Formularfelder (für Anlegen/Bearbeiten) und Abbildung Datensatz → Karten-UI.
 // Startinhalte liegen in lib/data/*.
-import type { CardModel, Tone } from "@/lib/data/types";
+import type { CardModel, Tone, Accent } from "@/lib/data/types";
 import { riskTone } from "@/lib/data/types";
 import { sops } from "@/lib/data/sops";
 import { clients, templates } from "@/lib/data/customer-service";
@@ -9,6 +9,8 @@ import { concepts } from "@/lib/data/concepts";
 import { automations } from "@/lib/data/automation";
 import { websites } from "@/lib/data/websites";
 import { updates, experiments, opportunities, learning, risks } from "@/lib/data/ai-intelligence";
+import { invoices } from "@/lib/data/invoices";
+import { reminderStage, formatEUR, STAGE_THRESHOLDS, type ReminderStage } from "@/lib/invoices";
 
 export type FieldType = "text" | "textarea" | "list" | "tags" | "select" | "number";
 export type Field = {
@@ -35,9 +37,55 @@ const str = (v: unknown): string => (v == null ? "" : String(v));
 const num = (v: unknown): number => (typeof v === "number" ? v : Number(v) || 0);
 const lvlBadge = (l: string): Tone => (l === "hoch" ? "bad" : l === "mittel" ? "warn" : "ok");
 const hypeBadge = (l: string): Tone => (l === "Hype" ? "bad" : l === "gemischt" ? "warn" : "ok");
+const stageBadge = (s: ReminderStage): Accent =>
+  s === "second_dunning" ? "bad" : s === "first_dunning" || s === "reminder" ? "warn" : s === "due_today" ? "brand" : "ok";
+const statusBadge = (s: string): Tone =>
+  s === "paid" ? "ok" : s === "cancelled" ? "neutral" : s === "partial" ? "warn" : "brand";
 
 // ── Moduldefinitionen ───────────────────────────────────────────────────────
 export const MODULES: Record<string, ModuleDef> = {
+  invoices: {
+    key: "invoices", label: "Rechnungen", noun: "Rechnung",
+    fields: [
+      { name: "invoice_id", label: "Rechnungsnummer", type: "text", required: true },
+      { name: "amount", label: "Betrag (EUR)", type: "number", required: true },
+      { name: "customer_name", label: "Ansprechpartner", type: "text" },
+      { name: "company", label: "Firma", type: "text", full: true },
+      { name: "invoice_date", label: "Rechnungsdatum (YYYY-MM-DD)", type: "text" },
+      { name: "due_date", label: "Fällig am (YYYY-MM-DD)", type: "text", required: true },
+      { name: "payment_status", label: "Zahlungsstatus", type: "select", options: ["open", "partial", "paid", "cancelled"] },
+      { name: "customer_type", label: "Kundentyp", type: "select", options: ["stammkunde", "neukunde", "grosskunde", "kleinkunde", "risiko"] },
+      { name: "communication_style", label: "Kommunikationsstil", type: "select", options: ["formal", "neutral", "locker"] },
+      { name: "notes", label: "Notizen", type: "textarea", full: true },
+    ],
+    toCard: ({ id, data: d }) => {
+      const status = str(d.payment_status) || "open";
+      const { stage, days } = reminderStage(
+        { due_date: str(d.due_date), payment_status: status as never },
+      );
+      const overdueText = days > 0 ? `${days} Tage überfällig` : days === 0 ? "heute fällig" : `in ${-days} Tagen fällig`;
+      return {
+        id, accent: stageBadge(stage),
+        badges: [
+          { text: STAGE_THRESHOLDS[stage].label, tone: stageBadge(stage) },
+          { text: status, tone: statusBadge(status) },
+        ],
+        title: `${str(d.invoice_id)} · ${str(d.company) || str(d.customer_name)}`,
+        metas: [
+          { label: "Betrag", value: `${formatEUR(num(d.amount))} EUR` },
+          { label: "Fällig am", value: str(d.due_date) },
+          ...(status === "open" || status === "partial" ? [{ label: "Status", value: overdueText }] : []),
+          ...(d.customer_name ? [{ label: "Kontakt", value: str(d.customer_name) }] : []),
+        ],
+        description: str(d.notes),
+        footBadges: [
+          ...(d.customer_type ? [{ text: str(d.customer_type), tone: "outline" as const }] : []),
+          ...(d.communication_style ? [{ text: str(d.communication_style), tone: "outline" as const }] : []),
+        ],
+      };
+    },
+  },
+
   sops: {
     key: "sops", label: "SOPs", noun: "SOP",
     fields: [
@@ -313,6 +361,7 @@ export const MODULE_KEYS = Object.keys(MODULES);
 
 // Startinhalte beim ersten leeren Zustand eines Moduls.
 export const SEEDS: Record<string, unknown[]> = {
+  invoices,
   sops, clients, templates, concepts, automations, websites,
   ai_updates: updates, ai_experiments: experiments, ai_opportunities: opportunities,
   ai_learning: learning, ai_risks: risks,

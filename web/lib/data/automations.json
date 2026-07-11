@@ -1,0 +1,281 @@
+[
+  {
+    "id": "aut-lead-intake",
+    "title": "Lead-Eingang & Weiterleitung",
+    "status": "im Bau",
+    "trigger": "Neue Formular-Einsendung (Website/OnePage) oder eingehende Anfrage-E-Mail.",
+    "action": "Lead-Daten parsen und validieren, gegen die Eignungs-Checkliste (Budget, Fit, Dringlichkeit) prüfen, Dublette im CRM vermeiden, Kontakt + Deal anlegen und den Vertrieb bei heiß/warm sofort in Slack benachrichtigen.",
+    "tools": ["OnePage-Formular", "n8n", "CRM", "Claude API", "Slack"],
+    "value": "P1: Schnellere erste Reaktion, kein Lead geht verloren, sauberer CRM-Eingang statt Sammelpostfach."
+  },
+  {
+    "id": "aut-lead-scoring",
+    "title": "Lead-Scoring & Priorisierung",
+    "status": "im Bau",
+    "trigger": "Neuer oder aktualisierter Lead im CRM.",
+    "action": "Score 1–10 aus Problemstärke, Budgetwahrscheinlichkeit, Dringlichkeit, Entscheidungsbefugnis und Angebots-Fit berechnen, Priorität (A/B/C) setzen und Lead-Liste im Cockpit sortieren.",
+    "tools": ["CRM", "Claude API", "n8n", "Cockpit Lead-Radar"],
+    "value": "P1: Vertrieb arbeitet erst die profitabelsten Leads ab; keine Zeit an aussichtslosen Anfragen."
+  },
+  {
+    "id": "aut-lead-enrich",
+    "title": "Lead-Anreicherung (Firmendaten)",
+    "status": "Idee",
+    "trigger": "Neuer Lead ohne vollständiges Firmenprofil.",
+    "action": "Firmenname/Domain nachschlagen, Branche, Größe, Standort, Website-Stack und Personal-Brand-Potenzial ergänzen und als strukturierte Notiz an den CRM-Datensatz hängen.",
+    "tools": ["CRM", "Web-Research", "Claude API", "n8n"],
+    "value": "P2: Vertrieb geht mit Kontext ins Gespräch statt bei Null zu recherchieren."
+  },
+  {
+    "id": "aut-lead-followup",
+    "title": "Follow-up-Sequenz für neue Leads",
+    "status": "im Bau",
+    "trigger": "Lead 24 h ohne Antwort nach Erstkontakt.",
+    "action": "3-stufige Follow-up-Sequenz (Tag 1 / 3 / 7) im HK-Ton entwerfen: Kontext aufgreifen, Ziel bestätigen, konkreten nächsten Schritt anbieten. Entwürfe zur Freigabe an Luis, kein automatischer Versand.",
+    "tools": ["CRM", "E-Mail-Vorlage", "Claude API", "Freigabe-Schritt"],
+    "value": "P1: Nachfassen passiert zuverlässig statt im Alltag unterzugehen — der größte stille Umsatzverlust."
+  },
+  {
+    "id": "aut-lead-radar",
+    "title": "Gummersbach Lead-Radar",
+    "status": "Idee",
+    "trigger": "Wöchentlich, Montag 08:00.",
+    "action": "Regionale Unternehmen mit Branding-/Personal-Brand-Potenzial scannen, gegen Ideal-Kunden-Profil bewerten, Telefonnummern priorisieren und eine sortierte Akquise-Liste ins Cockpit schreiben.",
+    "tools": ["Web-Research", "Claude API", "n8n", "Cockpit"],
+    "value": "P2: Konstanter Nachschub qualifizierter Kaltakquise-Kontakte ohne manuelle Recherche."
+  },
+  {
+    "id": "aut-lead-reactivation",
+    "title": "Reaktivierung kalter & No-Show-Leads",
+    "status": "Idee",
+    "trigger": "Lead 30 Tage ohne Aktivität oder verpasster Termin.",
+    "action": "Alte Leads aus dem CRM ziehen, letzten Kontext zusammenfassen, passenden Reaktivierungs-Aufhänger (neuer Case, Ressource, Angebot) vorschlagen und Follow-up zur Freigabe vorbereiten.",
+    "tools": ["CRM", "Claude API", "E-Mail-Vorlage", "Freigabe-Schritt"],
+    "value": "P1: Holt bereits bezahlte Leads zurück in die Pipeline — günstigster Umsatz überhaupt."
+  },
+  {
+    "id": "aut-proposal-gen",
+    "title": "Angebots-Generator",
+    "status": "im Bau",
+    "trigger": "Erstgespräch abgeschlossen / Deal-Stufe auf \"Angebot\" gesetzt.",
+    "action": "Aus Gesprächsnotizen Diagnose, Lösung, Phasen, Preisanker und Upsells ableiten, Angebot aus HK-Vorlage befüllen, PDF erzeugen und zur Freigabe an Luis legen.",
+    "tools": ["CRM", "Claude API", "Angebots-Vorlage", "PDF", "Freigabe-Schritt"],
+    "value": "P1: Angebote in Minuten statt Stunden, einheitlich strukturiert, mit sauberem Preisanker."
+  },
+  {
+    "id": "aut-proposal-followup",
+    "title": "Angebots-Follow-up",
+    "status": "Idee",
+    "trigger": "Angebot versendet, nach 3 und 7 Tagen ohne Rückmeldung.",
+    "action": "Freundliches, nicht bedürftiges Follow-up entwerfen, Einwände antizipieren, konkrete Antwortoption anbieten und Deal-Status im CRM aktualisieren.",
+    "tools": ["CRM", "Claude API", "E-Mail-Vorlage", "Freigabe-Schritt"],
+    "value": "P1: Höhere Abschlussquote — die meisten Deals sterben im ausbleibenden Nachfassen."
+  },
+  {
+    "id": "aut-meeting-intel",
+    "title": "Meeting Intelligence",
+    "status": "im Bau",
+    "trigger": "Meeting-Transkript aus Google Meet / Zoom verfügbar.",
+    "action": "Gespräch analysieren und automatisch erzeugen: Executive Summary, Entscheidungen, Aufgaben (wer/bis wann), CRM-Update, Angebotsvorschlag und Follow-up-Mail. Alles zur Prüfung, kein automatischer Versand.",
+    "tools": ["Google Meet/Zoom", "Claude API", "CRM", "n8n", "Freigabe-Schritt"],
+    "value": "P1: Spart ~30 Min. Nachbereitung pro Meeting; kein verlorener To-do, CRM bleibt aktuell. (Lektion 31)"
+  },
+  {
+    "id": "aut-call-prep",
+    "title": "Sales-Call-Vorbereitung",
+    "status": "Idee",
+    "trigger": "30 Min. vor einem Termin im Kalender.",
+    "action": "Lead-Historie, Firmenkontext, wahrscheinlichen Pain Point, wahrscheinlichen Einwand und empfohlenen nächsten Schritt zu einem 1-Seiten-Briefing bündeln und nach Slack schicken.",
+    "tools": ["Kalender", "CRM", "Claude API", "Slack"],
+    "value": "P1: Vorbereitet ins Gespräch statt kalt — höhere Abschlusschance pro Call."
+  },
+  {
+    "id": "aut-deal-to-project",
+    "title": "Vertragsabschluss → Projekt anlegen",
+    "status": "Idee",
+    "trigger": "Deal im CRM auf \"gewonnen\" gesetzt.",
+    "action": "Projekt im Cockpit anlegen, Projekttyp erkennen, Standard-Aufgabenplan generieren, Verantwortliche zuordnen und Onboarding-Kette anstoßen.",
+    "tools": ["CRM", "Cockpit", "n8n", "Claude API"],
+    "value": "P2: Nahtloser Übergang von Sales zu Delivery ohne manuelles Aufsetzen."
+  },
+  {
+    "id": "aut-onboarding-kit",
+    "title": "Onboarding-Kit-Generator",
+    "status": "im Bau",
+    "trigger": "Vertrag als unterschrieben markiert.",
+    "action": "Kundenordner aus Vorlage in Google Drive anlegen, Willkommens-E-Mail entwerfen und Kickoff-Termin vorschlagen.",
+    "tools": ["Google Drive", "E-Mail-Vorlage", "Kalender", "n8n"],
+    "value": "P2: Onboarding-Setup von Stunden auf Minuten, jedes Mal einheitlich."
+  },
+  {
+    "id": "aut-kickoff",
+    "title": "Kickoff-Planung & Einladung",
+    "status": "Idee",
+    "trigger": "Onboarding-Kit erstellt.",
+    "action": "Freie Slots von Luis und Kunde abgleichen, Kickoff-Agenda aus Projekttyp generieren und Kalendereinladung + Agenda-Entwurf vorbereiten (Freigabe vor Versand).",
+    "tools": ["Kalender", "Claude API", "E-Mail-Vorlage", "Freigabe-Schritt"],
+    "value": "P3: Professioneller Start, klare Agenda, kein Terminping-Pong."
+  },
+  {
+    "id": "aut-access-checklist",
+    "title": "Zugänge- & Assets-Checkliste",
+    "status": "Idee",
+    "trigger": "Projekt angelegt.",
+    "action": "Projekttyp-abhängige Checkliste der benötigten Zugänge/Assets (Domain, Analytics, Logo, Markenmaterial, Ads-Konten) erstellen, Kunden-Anforderungsmail entwerfen und Eingang im Cockpit tracken.",
+    "tools": ["Cockpit", "Claude API", "E-Mail-Vorlage"],
+    "value": "P3: Kein Projektstillstand, weil Zugänge fehlen — häufigster Delivery-Blocker."
+  },
+  {
+    "id": "aut-content-idea",
+    "title": "Content aus Gedanken",
+    "status": "im Bau",
+    "trigger": "Luis wirft eine Idee/Sprachnotiz ins Cockpit.",
+    "action": "Aus einem Rohgedanken Hook, Post, Caption, Reel-Skript und CTA im HK-Ton erzeugen — passend zum 90-Tage-Content-Plan (60% Wissen, 20% Build-in-Public, 10% Proof, 10% Persönlichkeit).",
+    "tools": ["Cockpit", "Claude API", "Content-Vorlagen"],
+    "value": "P2: Aus einem Gedanken in Minuten fertiger Content statt leerer Seite."
+  },
+  {
+    "id": "aut-reel-pipeline",
+    "title": "Reel- & Video-Pipeline",
+    "status": "Idee",
+    "trigger": "Freigegebenes Reel-Skript im Cockpit.",
+    "action": "Szenenplan ableiten, Higgsfield-Prompts im HK-Stil erzeugen, Clips generieren und zur Logo-/Marken-Prüfung (H+K lesbar, Baum, kein \"AI\" in der Krone) vorlegen.",
+    "tools": ["Higgsfield", "Claude API", "Logo-Consistency-Guard", "Freigabe-Schritt"],
+    "value": "P2: Von Skript zu Rohschnitt ohne manuelles Prompten, markenkonform."
+  },
+  {
+    "id": "aut-content-repurpose",
+    "title": "Content-Repurposing (1 → viele)",
+    "status": "Idee",
+    "trigger": "Neues langes Asset (Blog, Video, Case) markiert.",
+    "action": "Ein Kernstück in mehrere Formate zerlegen: Reels, Karussells, LinkedIn-Posts, E-Mail-Snippet, Story-Ideen — jeweils mit Hook und CTA.",
+    "tools": ["Claude API", "Cockpit", "Content-Vorlagen"],
+    "value": "P2: Maximaler Output aus jedem Stück Kernarbeit."
+  },
+  {
+    "id": "aut-social-schedule",
+    "title": "Social-Planung & Scheduling",
+    "status": "Idee",
+    "trigger": "Wöchentlich, freigegebener Content im Cockpit.",
+    "action": "Freigegebene Posts auf einen Wochenplan verteilen, optimale Zeiten vorschlagen, Vorschau erstellen und die Planung an das Scheduling-Tool übergeben (Veröffentlichung nur nach Freigabe).",
+    "tools": ["Cockpit", "n8n", "Scheduling-Tool", "Freigabe-Schritt"],
+    "value": "P3: Konstante Sichtbarkeit ohne täglichen manuellen Aufwand."
+  },
+  {
+    "id": "aut-content-approval",
+    "title": "Content-Freigabe-Workflow",
+    "status": "Idee",
+    "trigger": "Neuer Content-Entwurf erstellt.",
+    "action": "Entwurf gegen Marke, Ton und Content-Plan prüfen, Verbesserungsvorschläge markieren und zur Ein-Klick-Freigabe an Luis/Kunde routen.",
+    "tools": ["Cockpit", "Claude API", "Slack", "Freigabe-Schritt"],
+    "value": "P3: Schnelle, saubere Freigaben statt E-Mail-Schleifen."
+  },
+  {
+    "id": "aut-lp-audit",
+    "title": "Landingpage-Audit",
+    "status": "Idee",
+    "trigger": "URL ins Cockpit eingegeben (Lead-Magnet oder Kundencheck).",
+    "action": "Seite auf Hero-Klarheit, Angebot, Beweis, CTA, Ladezeit, Mobile und SEO-Basics prüfen, priorisierte Fix-Liste und Quick-Wins ausgeben.",
+    "tools": ["Web-Fetch", "Claude API", "Cockpit"],
+    "value": "P2: Verkaufbarer Audit als Akquise-Türöffner und Kunden-Mehrwert."
+  },
+  {
+    "id": "aut-seo-monitor",
+    "title": "SEO-Sichtbarkeits-Monitor",
+    "status": "Idee",
+    "trigger": "Wöchentlich pro Website-Kunde.",
+    "action": "Search-Console- und Analytics-Daten ziehen, Ranking-/Klick-Veränderungen erkennen, Auffälligkeiten interpretieren und Handlungsempfehlungen in den Kundenbericht schreiben.",
+    "tools": ["Google Search Console", "Google Analytics", "Claude API", "n8n"],
+    "value": "P3: Sichtbarer laufender Mehrwert für Website-/SEO-Kunden = Retainer-Grundlage."
+  },
+  {
+    "id": "aut-website-setup",
+    "title": "Website-Projekt-Setup",
+    "status": "Idee",
+    "trigger": "Website-Deal gewonnen.",
+    "action": "Projektstruktur aus SOP anlegen: Positionierung, Sitemap, Hero-Konzept, SEO-Basis und Text-Aufgaben generieren und dem Projekt zuordnen.",
+    "tools": ["Cockpit", "Claude API", "OnePage", "SOP"],
+    "value": "P2: Standardisierter Website-Start bei jedem Kunden wiederverwendbar."
+  },
+  {
+    "id": "aut-weekly-report",
+    "title": "Wochenreport-Erstellung",
+    "status": "im Bau",
+    "trigger": "Jeden Freitag 09:00, pro aktivem Kunden.",
+    "action": "Kennzahlen sammeln, Report aus der Vorlage erstellen (Executive Summary, KPIs, was lief, Maßnahmen), zur Freigabe an den Kundenbetreuer leiten.",
+    "tools": ["Computer-Use-Agent", "Report-Vorlage", "n8n", "Freigabe-Schritt"],
+    "value": "P3: Spart ~3 Std./Woche pro Betreuer; Zahlen werden zu Entscheidungen."
+  },
+  {
+    "id": "aut-kpi-sync",
+    "title": "KPI-Dashboard-Sync ins Cockpit",
+    "status": "Idee",
+    "trigger": "Täglich 06:00.",
+    "action": "Kennzahlen aus Analytics, Ads und CRM abrufen, normalisieren und in die Cockpit-Kacheln (Leads, CPL, Pipeline, Umsatz) schreiben.",
+    "tools": ["Google Analytics", "Ads", "CRM", "n8n", "Cockpit"],
+    "value": "P3: Ein Blick aufs Cockpit statt fünf Tools — Entscheidungsgrundlage in Echtzeit."
+  },
+  {
+    "id": "aut-exec-report",
+    "title": "Monatlicher Executive Report",
+    "status": "Idee",
+    "trigger": "Monatsanfang, pro Kunde.",
+    "action": "Monatswerte aggregieren, gegen Vormonat und Ziel vergleichen, wichtigste Ergebnisse, offene Punkte und nächste Empfehlungen zu einem kundenfreundlichen Bericht verdichten.",
+    "tools": ["Claude API", "Report-Vorlage", "n8n", "Freigabe-Schritt"],
+    "value": "P3: Macht Betreuung sichtbar — Grundlage für Verlängerung und Upsell."
+  },
+  {
+    "id": "aut-health-score",
+    "title": "Customer Health Score",
+    "status": "im Bau",
+    "trigger": "Wöchentlich pro aktivem Kunden.",
+    "action": "KPI-Entwicklung, offene Aufgaben, Reaktionszeit und Zufriedenheit zu einem Health Score (🟢 gesund / 🟡 beobachten / 🔴 Risiko) verrechnen und bei Rot den Betreuer in Slack alarmieren.",
+    "tools": ["CRM", "Google Analytics", "Claude API", "Slack", "Cockpit"],
+    "value": "P1: Abwanderung früh erkennen, bevor der Kunde kündigt. (Lektion 30)"
+  },
+  {
+    "id": "aut-cs-report",
+    "title": "Customer-Success-Monatsbericht",
+    "status": "Idee",
+    "trigger": "30 Tage nach Go-Live, danach monatlich.",
+    "action": "Ergebnisse vor/nach Projekt vergleichen (Besucher, Anfragen, Sichtbarkeit), verständlich zusammenfassen, Optimierungspotenziale erkennen und Handlungsempfehlungen + Ergebnis-Mail vorbereiten.",
+    "tools": ["Google Analytics", "Search Console", "Claude API", "E-Mail-Vorlage", "Freigabe-Schritt"],
+    "value": "P3: Zeigt dem Kunden messbaren ROI = zufriedene Kunden + wiederkehrender Umsatz. (Lektion 30)"
+  },
+  {
+    "id": "aut-upsell-detect",
+    "title": "Upsell-Chancen-Erkennung",
+    "status": "Idee",
+    "trigger": "Nach jedem Customer-Success-Report.",
+    "action": "Lücken erkennen (SEO fehlt, Social inaktiv, langsame Seite, keine Automation, kein Recruiting), passende Zusatzleistung ableiten und als konkrete Chance im CRM markieren + Betreuer informieren.",
+    "tools": ["Claude API", "CRM", "Slack"],
+    "value": "P1: Systematischer Folgeumsatz aus Bestandskunden statt Zufall."
+  },
+  {
+    "id": "aut-invoice-reminders",
+    "title": "Zahlungserinnerungen",
+    "status": "live",
+    "trigger": "Rechnung an Tag 7 und 14 unbezahlt.",
+    "action": "Freundliche Erinnerungs-Vorlage entwerfen und versenden; Buchhaltung markieren, falls nach Tag 14 weiter offen.",
+    "tools": ["Buchhaltungstool", "E-Mail-Vorlage", "n8n"],
+    "value": "P1: Verbessert den Cashflow; entfällt manuelles Nachfassen."
+  },
+  {
+    "id": "aut-invoice-gen",
+    "title": "Rechnungserstellung aus Meilenstein",
+    "status": "Idee",
+    "trigger": "Projekt-Meilenstein im Cockpit auf \"erreicht\" gesetzt.",
+    "action": "Rechnungspositionen aus Angebot/Meilenstein übernehmen, Rechnung aus Vorlage erzeugen, Nummer vergeben und zur Freigabe vor Versand vorlegen.",
+    "tools": ["Cockpit", "Rechnungs-Vorlage", "PDF", "Freigabe-Schritt"],
+    "value": "P1: Schneller von geleisteter Arbeit zu gestellter Rechnung — direkter Cashflow-Hebel."
+  },
+  {
+    "id": "aut-sop-builder",
+    "title": "SOP-Builder aus Experten-Interview",
+    "status": "Idee",
+    "trigger": "Interview-Transkript oder Stichpunkte zu einem Prozess vorhanden.",
+    "action": "Aus Rohwissen Prozessbeschreibung, Rollen, Schritt-für-Schritt-Anleitung, Qualitätschecks und Automatisierungspotenzial erzeugen und als versionierte SOP im Cockpit speichern.",
+    "tools": ["Claude API", "Cockpit SOPs", "Versionierung"],
+    "value": "P3: Wissen wandert vom Kopf ins System — Basis für jede weitere Automatisierung. (Lektion 29)"
+  }
+]

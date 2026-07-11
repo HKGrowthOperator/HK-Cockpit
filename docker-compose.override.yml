@@ -1,0 +1,7 @@
+# Lokaler Dev-Override (von Jarvis): veröffentlicht Postgres auf dem Host,
+# damit "npm run dev" auf dem Rechner die DB unter localhost:5432 erreicht.
+# Nutzung: docker compose -f docker-compose.local.yml -f docker-compose.override.yml up -d postgres
+services:
+  postgres:
+    ports:
+      - "5432:5432"
