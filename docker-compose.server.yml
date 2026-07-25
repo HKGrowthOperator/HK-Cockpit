@@ -47,7 +47,11 @@ services:
       N8N_SECURE_COOKIE: "false"
       GENERIC_TIMEZONE: Europe/Berlin
     volumes:
-      - ./n8n_data:/home/node/.n8n
+      # Named Volume statt Bind-Mount: ein Bind-Mount wird von Docker als root
+      # angelegt, n8n läuft aber als uid 1000 → EACCES beim Start (Crash-Loop).
+      # Ein Named Volume übernimmt Besitzer/Rechte aus dem Image → n8n startet.
+      # Die Workflows liegen ohnehin in Postgres (DB "n8n"), nicht in diesem Ordner.
+      - n8n_data:/home/node/.n8n
     ports:
       - "127.0.0.1:${N8N_PORT:-5678}:5678" # nur lokal; bei Bedarf via Funnel freigeben
 
@@ -76,3 +80,6 @@ services:
       GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI:-}
     ports:
       - "${WEB_PORT:-3000}:3000" # Funnel terminiert TLS extern und proxyt hierher
+
+volumes:
+  n8n_data:
