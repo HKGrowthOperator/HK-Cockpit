@@ -52,8 +52,12 @@ services:
       # Ein Named Volume übernimmt Besitzer/Rechte aus dem Image → n8n startet.
       # Die Workflows liegen ohnehin in Postgres (DB "n8n"), nicht in diesem Ordner.
       - n8n_data:/home/node/.n8n
-    ports:
-      - "127.0.0.1:${N8N_PORT:-5678}:5678" # nur lokal; bei Bedarf via Funnel freigeben
+    # expose statt ports: Der Reverse-Proxy (Coolify/Traefik) erreicht n8n ueber
+    # das Docker-Netz. Eine Host-Bindung auf 127.0.0.1 waere fuer den Proxy
+    # unerreichbar -> "Bad Gateway". Von aussen ist n8n weiterhin nur ueber den
+    # Proxy (mit Domain) erreichbar, nicht direkt ueber den Host-Port.
+    expose:
+      - "5678"
 
   web:
     build: ./web
