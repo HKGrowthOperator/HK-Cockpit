@@ -82,7 +82,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autaccesscheckli"
   },
   {
     "name": "HK · Sales-Call-Vorbereitung",
@@ -167,7 +167,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autcallprep"
   },
   {
     "name": "HK · Content-Freigabe-Workflow",
@@ -252,7 +252,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autcontentapprov"
   },
   {
     "name": "HK · Content aus Gedanken",
@@ -337,7 +337,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autcontentidea"
   },
   {
     "name": "HK · Content-Repurposing (1 → viele)",
@@ -422,7 +422,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autcontentrepurp"
   },
   {
     "name": "HK · Customer-Success-Monatsbericht",
@@ -508,7 +508,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autcsreport"
   },
   {
     "name": "HK · Vertragsabschluss → Projekt anlegen",
@@ -593,7 +593,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autdealtoproject"
   },
   {
     "name": "HK · Monatlicher Executive Report",
@@ -679,7 +679,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autexecreport"
   },
   {
     "name": "HK · Customer Health Score",
@@ -767,7 +767,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "authealthscore"
   },
   {
     "name": "HK · Rechnungserstellung aus Meilenstein",
@@ -852,7 +852,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autinvoicegen"
   },
   {
     "name": "HK · Zahlungserinnerungen",
@@ -937,7 +937,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autinvoiceremind"
   },
   {
     "name": "HK · Kickoff-Planung & Einladung",
@@ -1022,7 +1022,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autkickoff"
   },
   {
     "name": "HK · KPI-Dashboard-Sync ins Cockpit",
@@ -1107,7 +1107,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autkpisync"
   },
   {
     "name": "HK · Lead-Anreicherung (Firmendaten)",
@@ -1192,7 +1192,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autleadenrich"
   },
   {
     "name": "HK · Follow-up-Sequenz für neue Leads",
@@ -1277,7 +1277,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autleadfollowup"
   },
   {
     "name": "HK · Lead-Eingang & Weiterleitung",
@@ -1362,7 +1362,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autleadintake"
   },
   {
     "name": "HK · Gummersbach Lead-Radar",
@@ -1450,7 +1450,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autleadradar"
   },
   {
     "name": "HK · Reaktivierung kalter & No-Show-Leads",
@@ -1536,7 +1536,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autleadreactivat"
   },
   {
     "name": "HK · Lead-Scoring & Priorisierung",
@@ -1621,7 +1621,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autleadscoring"
   },
   {
     "name": "HK · Landingpage-Audit",
@@ -1706,7 +1706,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autlpaudit"
   },
   {
     "name": "HK · Meeting Intelligence",
@@ -1791,7 +1791,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autmeetingintel"
   },
   {
     "name": "HK · Onboarding-Kit-Generator",
@@ -1876,7 +1876,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autonboardingkit"
   },
   {
     "name": "HK · Angebots-Follow-up",
@@ -1961,7 +1961,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autproposalfollo"
   },
   {
     "name": "HK · Angebots-Generator",
@@ -2046,7 +2046,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autproposalgen"
   },
   {
     "name": "HK · Reel- & Video-Pipeline",
@@ -2131,7 +2131,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autreelpipeline"
   },
   {
     "name": "HK · SEO-Sichtbarkeits-Monitor",
@@ -2219,7 +2219,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autseomonitor"
   },
   {
     "name": "HK · Social-Planung & Scheduling",
@@ -2307,7 +2307,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autsocialschedul"
   },
   {
     "name": "HK · SOP-Builder aus Experten-Interview",
@@ -2392,7 +2392,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autsopbuilder"
   },
   {
     "name": "HK · Upsell-Chancen-Erkennung",
@@ -2477,7 +2477,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autupselldetect"
   },
   {
     "name": "HK · Website-Projekt-Setup",
@@ -2562,7 +2562,7 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autwebsitesetup"
   },
   {
     "name": "HK · Wochenreport-Erstellung",
@@ -2650,6 +2650,6 @@
     "settings": {
       "executionOrder": "v1"
     },
-    "tags": []
+    "id": "autweeklyreport"
   }
 ]
