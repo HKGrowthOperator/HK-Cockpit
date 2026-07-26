@@ -19,7 +19,7 @@ vorher                             nachher
 
 1. **+ New → Docker Compose (Empty)** (oder *Public Repository* mit diesem Repo
    und **Base Directory** = `/n8n-standalone`).
-2. Inhalt von `docker-compose.yml` einfuegen bzw. Repo waehlen.
+2. Inhalt von `docker-compose.yaml` einfuegen bzw. Repo waehlen.
 3. **Environment Variables** setzen:
 
    | Name | Wert |
