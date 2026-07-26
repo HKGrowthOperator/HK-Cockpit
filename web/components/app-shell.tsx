@@ -21,6 +21,7 @@ const NAV: NavGroup[] = [
     { href: "/sops", label: "SOPs", icon: "list" },
     { href: "/kundenbedienung", label: "Kundenbedienung", icon: "users" },
     { href: "/rechnungen", label: "Rechnungen", icon: "euro" },
+    { href: "/buchhaltung", label: "Buchhaltung", icon: "euro" },
     { href: "/berichte", label: "Berichte", icon: "report" },
     { href: "/automation", label: "Automation", icon: "bolt" },
   ] },

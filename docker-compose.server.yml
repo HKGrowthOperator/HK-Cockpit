@@ -43,6 +43,8 @@ services:
       # Ohne Wert bleibt der Endpoint in Produktion geschlossen (503). openssl rand -hex 32
       AUTOMATION_INGEST_SECRET: ${AUTOMATION_INGEST_SECRET:-}
       NODE_ENV: production
+      # Ablage der Buchhaltungsbelege (GoBD: unveränderbar aufbewahren).
+      BELEG_PFAD: /data/belege
       # KI-Assistent — OPTIONAL. Ohne Schlüssel läuft das Dashboard normal,
       # nur Chat-Assistent + Drive-Import sind deaktiviert.
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
@@ -52,6 +54,13 @@ services:
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
       # Muss EXAKT der öffentlichen Funnel-URL + /api/google/callback entsprechen.
       GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI:-}
+    volumes:
+      # Belegarchiv der Buchhaltung — Named Volume, damit die Dateien einen
+      # Neubau des Containers überleben.
+      - beleg_archiv:/data/belege
     ports:
       - "${WEB_PORT:-3000}:3000" # Funnel terminiert TLS extern und proxyt hierher
+
+volumes:
+  beleg_archiv:
 

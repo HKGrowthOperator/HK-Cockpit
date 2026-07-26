@@ -21,5 +21,5 @@ CREATE TABLE IF NOT EXISTS app_secrets (
     updated_at timestamptz NOT NULL DEFAULT now()
 );
 
--- Hinweis: Standard-Inhalte (Seeds) der Module füllt die App beim ersten Start
--- selbst, sobald ein Modul noch leer ist. Die Tabellen hier sind nur das Gerüst.
+-- Hinweis: Das Cockpit startet bewusst OHNE Beispieldaten. Die Module bleiben
+-- leer, bis echte Daten erfasst werden. Die Tabellen hier sind nur das Gerüst.

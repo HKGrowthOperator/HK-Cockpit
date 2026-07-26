@@ -43,6 +43,36 @@ async function ensureSchema(): Promise<void> {
     }
   }
   await migrateAutomationsCatalog();
+  await migrateDemodatenEntfernen();
+}
+
+// Einmalige Migration: sämtliche Beispieldatensätze entfernen. Das Cockpit
+// arbeitet ausschließlich mit echten Daten. Erkennungsmerkmal ist data.id —
+// die trugen nur die ausgelieferten Seeds; von Hand angelegte Einträge haben
+// eine UUID in der Spalte id, aber kein data.id, und bleiben unangetastet.
+// Der Automations-Katalog ist Konfiguration (Gegenstück zu den n8n-Workflows)
+// und bleibt deshalb erhalten.
+async function migrateDemodatenEntfernen(): Promise<void> {
+  const MIG_KEY = "demodaten-entfernt-v1";
+  const client = await pool.connect();
+  try {
+    await client.query("BEGIN");
+    const marked = await client.query(
+      "INSERT INTO app_migrations (key) VALUES ($1) ON CONFLICT (key) DO NOTHING",
+      [MIG_KEY],
+    );
+    if (marked.rowCount === 1) {
+      await client.query(
+        "DELETE FROM module_items WHERE module <> 'automations' AND data ? 'id'",
+      );
+    }
+    await client.query("COMMIT");
+  } catch (err) {
+    await client.query("ROLLBACK").catch(() => {});
+    throw err;
+  } finally {
+    client.release();
+  }
 }
 
 // Einmalige Migration: Automations-Katalog v2 (31 Stück) ersetzt die alten
