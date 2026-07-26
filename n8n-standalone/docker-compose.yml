@@ -1,0 +1,51 @@
+# n8n als EIGENSTAENDIGE Coolify-Ressource.
+# ---------------------------------------------------------------
+# Warum getrennt vom Cockpit-Stack? Solange n8n im selben Compose-Projekt
+# lag, hat ein n8n-Absturz den gesamten Cockpit-Stack mitgerissen
+# (Coolify stoppt nach 10 Restarts alles). Getrennt kann n8n das Cockpit
+# nicht mehr beeinflussen.
+#
+# Anlegen in Coolify:
+#   + New -> Docker Compose (Empty) -> diesen Inhalt einfuegen
+#   ODER: Public Repository (HK-Cockpit), Base Directory = /n8n-standalone
+#
+# Pflicht-Variable in Coolify:
+#   N8N_ENCRYPTION_KEY  = derselbe Key wie bisher (sonst sind gespeicherte
+#                         Zugangsdaten in den Workflows nicht mehr lesbar)
+#
+# Optional (eigene Postgres-DB statt der eingebauten SQLite-Datei):
+#   DB_TYPE=postgresdb, DB_POSTGRESDB_HOST/PORT/DATABASE/USER/PASSWORD
+#
+# Coolify vergibt Domain und Port automatisch (SERVICE_FQDN_N8N_5678).
+services:
+  n8n:
+    image: n8nio/n8n:latest
+    restart: unless-stopped
+    environment:
+      # Coolify erzeugt hieraus die oeffentliche Adresse und routet auf 5678.
+      - SERVICE_FQDN_N8N_5678
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY:?bitte in Coolify setzen}
+      - N8N_HOST=${SERVICE_URL_N8N:-localhost}
+      - WEBHOOK_URL=${SERVICE_FQDN_N8N:-http://localhost:5678}
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - N8N_SECURE_COOKIE=false
+      - N8N_PROXY_HOPS=1
+      - GENERIC_TIMEZONE=Europe/Berlin
+      - TZ=Europe/Berlin
+      # Rueckkanal zum Cockpit (die Workflows melden ihre Laeufe dorthin).
+      - COCKPIT_LOG_URL=${COCKPIT_LOG_URL:-}
+      - AUTOMATION_INGEST_SECRET=${AUTOMATION_INGEST_SECRET:-}
+    volumes:
+      # Named Volume: uebernimmt Besitzer/Rechte aus dem Image (uid 1000).
+      # Ein Bind-Mount waere root-eigen -> EACCES -> Crash-Loop.
+      - n8n_data:/home/node/.n8n
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:5678/healthz || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 40s
+
+volumes:
+  n8n_data:

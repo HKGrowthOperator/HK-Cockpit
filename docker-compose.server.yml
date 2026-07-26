@@ -29,36 +29,6 @@ services:
       timeout: 5s
       retries: 10
 
-  n8n:
-    image: n8nio/n8n:latest
-    container_name: hk-n8n
-    restart: unless-stopped
-    depends_on:
-      postgres:
-        condition: service_healthy
-    environment:
-      DB_TYPE: postgresdb
-      DB_POSTGRESDB_HOST: postgres
-      DB_POSTGRESDB_PORT: 5432
-      DB_POSTGRESDB_DATABASE: n8n
-      DB_POSTGRESDB_USER: ${POSTGRES_USER:-cockpit}
-      DB_POSTGRESDB_PASSWORD: ${POSTGRES_PASSWORD:?bitte in .env setzen}
-      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY:?bitte in .env setzen}
-      N8N_SECURE_COOKIE: "false"
-      GENERIC_TIMEZONE: Europe/Berlin
-    volumes:
-      # Named Volume statt Bind-Mount: ein Bind-Mount wird von Docker als root
-      # angelegt, n8n läuft aber als uid 1000 → EACCES beim Start (Crash-Loop).
-      # Ein Named Volume übernimmt Besitzer/Rechte aus dem Image → n8n startet.
-      # Die Workflows liegen ohnehin in Postgres (DB "n8n"), nicht in diesem Ordner.
-      - n8n_data:/home/node/.n8n
-    # expose statt ports: Der Reverse-Proxy (Coolify/Traefik) erreicht n8n ueber
-    # das Docker-Netz. Eine Host-Bindung auf 127.0.0.1 waere fuer den Proxy
-    # unerreichbar -> "Bad Gateway". Von aussen ist n8n weiterhin nur ueber den
-    # Proxy (mit Domain) erreichbar, nicht direkt ueber den Host-Port.
-    expose:
-      - "5678"
-
   web:
     build: ./web
     container_name: hk-web
@@ -85,5 +55,3 @@ services:
     ports:
       - "${WEB_PORT:-3000}:3000" # Funnel terminiert TLS extern und proxyt hierher
 
-volumes:
-  n8n_data:
