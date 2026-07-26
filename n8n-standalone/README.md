@@ -67,3 +67,17 @@ DB_POSTGRESDB_PASSWORD=<POSTGRES_PASSWORD>
 Dafuer muss die Cockpit-Postgres im selben Docker-Netz erreichbar sein
 (in Coolify: beide Ressourcen ins gleiche Netzwerk legen, *Connect to
 predefined network*).
+
+## Schnell-Import aller 31 Workflows (ein Befehl)
+
+Im **Terminal der n8n-Ressource** in Coolify:
+
+```bash
+wget -qO /tmp/wf.json https://raw.githubusercontent.com/HKGrowthOperator/HK-Cockpit/main/n8n-standalone/alle-31-workflows.json && n8n import:workflow --input=/tmp/wf.json
+```
+
+Danach die n8n-Ressource **einmal neu starten** (Restart). Die Workflows sind
+importiert und **deaktiviert** — in der Oberfläche gezielt aktivieren.
+
+`alle-31-workflows.json` ist die Sammel-Datei aus `n8n-workflows/*.json`
+(ein JSON-Array); `n8n import:workflow` liest Arrays direkt ein.

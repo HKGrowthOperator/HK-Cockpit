@@ -1,0 +1,2655 @@
+[
+  {
+    "name": "HK · Zugänge- & Assets-Checkliste",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-access-checklist-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-access-checklist-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Zugänge- & Assets-Checkliste\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-access-checklist-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Sales-Call-Vorbereitung",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-call-prep-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-call-prep-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Sales-Call-Vorbereitung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-call-prep-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Content-Freigabe-Workflow",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-content-approval-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-content-approval-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Content-Freigabe-Workflow\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-content-approval-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Content aus Gedanken",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-content-idea-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-content-idea-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Content aus Gedanken\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-content-idea-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Content-Repurposing (1 → viele)",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-content-repurpose-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-content-repurpose-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Content-Repurposing (1 → viele)\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-content-repurpose-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Customer-Success-Monatsbericht",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-cs-report-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "months",
+                "monthsInterval": 1,
+                "triggerAtDayOfMonth": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-cs-report-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Customer-Success-Monatsbericht\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-cs-report-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Vertragsabschluss → Projekt anlegen",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-deal-to-project-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-deal-to-project-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Vertragsabschluss → Projekt anlegen\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-deal-to-project-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Monatlicher Executive Report",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-exec-report-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "months",
+                "monthsInterval": 1,
+                "triggerAtDayOfMonth": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-exec-report-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Monatlicher Executive Report\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-exec-report-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Customer Health Score",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-health-score-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "weeks",
+                "weeksInterval": 1,
+                "triggerAtDay": [
+                  1
+                ],
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-health-score-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Customer Health Score\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-health-score-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Rechnungserstellung aus Meilenstein",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-invoice-gen-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-invoice-gen-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Rechnungserstellung aus Meilenstein\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-invoice-gen-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Zahlungserinnerungen",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-invoice-reminders-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-invoice-reminders-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Zahlungserinnerungen\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-invoice-reminders-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Kickoff-Planung & Einladung",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-kickoff-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-kickoff-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Kickoff-Planung & Einladung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-kickoff-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · KPI-Dashboard-Sync ins Cockpit",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-kpi-sync-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 6
+              }
+            ]
+          }
+        },
+        "id": "aut-kpi-sync-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"KPI-Dashboard-Sync ins Cockpit\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-kpi-sync-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Lead-Anreicherung (Firmendaten)",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-lead-enrich-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-lead-enrich-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Lead-Anreicherung (Firmendaten)\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-lead-enrich-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Follow-up-Sequenz für neue Leads",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-lead-followup-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-lead-followup-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Follow-up-Sequenz für neue Leads\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-lead-followup-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Lead-Eingang & Weiterleitung",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-lead-intake-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-lead-intake-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Lead-Eingang & Weiterleitung\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-lead-intake-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Gummersbach Lead-Radar",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-lead-radar-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "weeks",
+                "weeksInterval": 1,
+                "triggerAtDay": [
+                  1
+                ],
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-lead-radar-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Gummersbach Lead-Radar\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-lead-radar-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Reaktivierung kalter & No-Show-Leads",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-lead-reactivation-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "months",
+                "monthsInterval": 1,
+                "triggerAtDayOfMonth": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-lead-reactivation-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Reaktivierung kalter & No-Show-Leads\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-lead-reactivation-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Lead-Scoring & Priorisierung",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-lead-scoring-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-lead-scoring-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Lead-Scoring & Priorisierung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-lead-scoring-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Landingpage-Audit",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-lp-audit-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-lp-audit-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Landingpage-Audit\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-lp-audit-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Meeting Intelligence",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-meeting-intel-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-meeting-intel-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Meeting Intelligence\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-meeting-intel-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Onboarding-Kit-Generator",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-onboarding-kit-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-onboarding-kit-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Onboarding-Kit-Generator\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-onboarding-kit-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Angebots-Follow-up",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-proposal-followup-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-proposal-followup-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Angebots-Follow-up\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-proposal-followup-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Angebots-Generator",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-proposal-gen-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-proposal-gen-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Angebots-Generator\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-proposal-gen-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Reel- & Video-Pipeline",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-reel-pipeline-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-reel-pipeline-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Reel- & Video-Pipeline\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-reel-pipeline-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · SEO-Sichtbarkeits-Monitor",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-seo-monitor-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "weeks",
+                "weeksInterval": 1,
+                "triggerAtDay": [
+                  1
+                ],
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-seo-monitor-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"SEO-Sichtbarkeits-Monitor\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-seo-monitor-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Social-Planung & Scheduling",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-social-schedule-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "weeks",
+                "weeksInterval": 1,
+                "triggerAtDay": [
+                  1
+                ],
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-social-schedule-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Social-Planung & Scheduling\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-social-schedule-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · SOP-Builder aus Experten-Interview",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-sop-builder-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-sop-builder-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"SOP-Builder aus Experten-Interview\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-sop-builder-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Upsell-Chancen-Erkennung",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-upsell-detect-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-upsell-detect-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Upsell-Chancen-Erkennung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-upsell-detect-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Website-Projekt-Setup",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-website-setup-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "days",
+                "daysInterval": 1,
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-website-setup-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Website-Projekt-Setup\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-website-setup-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  },
+  {
+    "name": "HK · Wochenreport-Erstellung",
+    "nodes": [
+      {
+        "parameters": {},
+        "id": "aut-weekly-report-manual",
+        "name": "Manuell starten",
+        "type": "n8n-nodes-base.manualTrigger",
+        "typeVersion": 1,
+        "position": [
+          160,
+          120
+        ]
+      },
+      {
+        "parameters": {
+          "rule": {
+            "interval": [
+              {
+                "field": "weeks",
+                "weeksInterval": 1,
+                "triggerAtDay": [
+                  1
+                ],
+                "triggerAtHour": 9
+              }
+            ]
+          }
+        },
+        "id": "aut-weekly-report-sched",
+        "name": "Zeitplan",
+        "type": "n8n-nodes-base.scheduleTrigger",
+        "typeVersion": 1.2,
+        "position": [
+          160,
+          300
+        ]
+      },
+      {
+        "parameters": {
+          "method": "POST",
+          "url": "http://host.docker.internal:3001/api/automations/log",
+          "sendBody": true,
+          "contentType": "json",
+          "specifyBody": "json",
+          "jsonBody": "{\n  \"automation\": \"Wochenreport-Erstellung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "options": {}
+        },
+        "id": "aut-weekly-report-http",
+        "name": "An Cockpit melden",
+        "type": "n8n-nodes-base.httpRequest",
+        "typeVersion": 4.2,
+        "position": [
+          420,
+          200
+        ]
+      }
+    ],
+    "connections": {
+      "Manuell starten": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
+      "Zeitplan": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "active": false,
+    "settings": {
+      "executionOrder": "v1"
+    },
+    "tags": []
+  }
+]
