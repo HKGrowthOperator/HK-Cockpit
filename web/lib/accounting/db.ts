@@ -4,6 +4,7 @@
 
 import { pool } from "@/lib/db";
 import { KONTENRAHMEN } from "./kontenrahmen";
+import { berechneSalden } from "./salden";
 import type {
   BankUmsatz, Beleg, Buchung, Konto, Kontenrahmen, KontoSaldo,
 } from "./types";
@@ -317,41 +318,16 @@ export async function storniereBuchung(id: string, von?: string): Promise<Buchun
   return storno;
 }
 
-/** Summen und Salden je Konto (Basis fuer GuV, Bilanz und SuSa-Liste). */
+/** Summen und Salden je Konto. Die Steueraufteilung (Erlös netto +
+ *  Umsatzsteuer separat) passiert in lib/accounting/salden.ts. */
 export async function ladeSalden(jahr: number): Promise<KontoSaldo[]> {
   await initAccounting();
-  const { rows } = await pool.query(
-    `WITH bewegung AS (
-       SELECT soll_konto AS konto, betrag_cent AS soll, 0::bigint AS haben
-         FROM buchungen WHERE geschaeftsjahr = $1 AND status = 'gebucht'
-       UNION ALL
-       SELECT haben_konto, 0::bigint, betrag_cent
-         FROM buchungen WHERE geschaeftsjahr = $1 AND status = 'gebucht'
-     )
-     SELECT k.nummer AS konto, k.bezeichnung, k.art, k.gruppe,
-            COALESCE(SUM(b.soll), 0)  AS soll_cent,
-            COALESCE(SUM(b.haben), 0) AS haben_cent
-       FROM konten k JOIN bewegung b ON b.konto = k.nummer
-      GROUP BY k.nummer, k.bezeichnung, k.art, k.gruppe
-      ORDER BY k.nummer`,
-    [jahr],
-  );
-  return rows.map((r: Record<string, unknown>) => {
-    const soll = Number(r.soll_cent);
-    const haben = Number(r.haben_cent);
-    const art = r.art as KontoSaldo["art"];
-    // Aktiv- und Aufwandskonten haben Sollsaldo, Passiv/Ertrag Habensaldo.
-    const saldo = art === "aktiv" || art === "aufwand" ? soll - haben : haben - soll;
-    return {
-      konto: r.konto as string,
-      bezeichnung: r.bezeichnung as string,
-      art,
-      gruppe: r.gruppe as string,
-      soll_cent: soll,
-      haben_cent: haben,
-      saldo_cent: saldo,
-    };
-  });
+  const [buchungen, konten, einstellungen] = await Promise.all([
+    ladeBuchungen({ jahr, limit: 20000 }),
+    ladeKonten(),
+    ladeEinstellungen(),
+  ]);
+  return berechneSalden(buchungen, konten, einstellungen.kontenrahmen);
 }
 
 // ── Belege ──────────────────────────────────────────────────────────────────

@@ -218,3 +218,71 @@ export function monatsverlauf(
   }
   return monate;
 }
+
+// ── Vergleich zum Vormonat (für die Trendanzeige im Dashboard) ─────────────
+
+export type Trend = {
+  /** Veränderung in Prozent gegenüber der Vergleichsperiode. */
+  prozent: number | null;
+  /** true = mehr als vorher. */
+  gestiegen: boolean;
+  /** Wert der Vergleichsperiode in Cent. */
+  vorher_cent: number;
+  aktuell_cent: number;
+};
+
+function trend(aktuell: number, vorher: number): Trend {
+  const prozent = vorher === 0 ? null : Math.round(((aktuell - vorher) / Math.abs(vorher)) * 1000) / 10;
+  return { prozent, gestiegen: aktuell >= vorher, vorher_cent: vorher, aktuell_cent: aktuell };
+}
+
+export type Trends = {
+  einnahmen: Trend;
+  ausgaben: Trend;
+  ergebnis: Trend;
+  monat: string; // betrachteter Monat, z. B. "Juli"
+};
+
+const MONATSNAMEN = [
+  "Januar", "Februar", "März", "April", "Mai", "Juni",
+  "Juli", "August", "September", "Oktober", "November", "Dezember",
+];
+
+/** Vergleicht den laufenden Monat mit dem Vormonat. */
+export function monatsTrends(verlauf: MonatsWert[], jahr: number): Trends {
+  const heute = new Date();
+  const idx = heute.getFullYear() === jahr ? heute.getMonth() : 11;
+  const jetzt = verlauf[idx] ?? { einnahmen: 0, ausgaben: 0, ergebnis: 0, monat: "" };
+  const davor = verlauf[idx - 1] ?? { einnahmen: 0, ausgaben: 0, ergebnis: 0, monat: "" };
+  const c = (v: number) => Math.round(v * 100);
+  return {
+    einnahmen: trend(c(jetzt.einnahmen), c(davor.einnahmen)),
+    ausgaben: trend(c(jetzt.ausgaben), c(davor.ausgaben)),
+    ergebnis: trend(c(jetzt.ergebnis), c(davor.ergebnis)),
+    monat: MONATSNAMEN[idx] ?? "",
+  };
+}
+
+/** Größte Kostenblöcke — für die Verteilungsgrafik. */
+export type Kostenblock = { gruppe: string; betrag_cent: number; anteil: number };
+
+export function kostenverteilung(salden: KontoSaldo[], maxGruppen = 6): Kostenblock[] {
+  const nachGruppe = new Map<string, number>();
+  for (const s of salden) {
+    if (s.art !== "aufwand" || s.saldo_cent <= 0) continue;
+    nachGruppe.set(s.gruppe, (nachGruppe.get(s.gruppe) ?? 0) + s.saldo_cent);
+  }
+  const sortiert = [...nachGruppe.entries()].sort((a, b) => b[1] - a[1]);
+  const gesamt = sortiert.reduce((a, [, v]) => a + v, 0);
+  if (!gesamt) return [];
+
+  const oben = sortiert.slice(0, maxGruppen);
+  const rest = sortiert.slice(maxGruppen).reduce((a, [, v]) => a + v, 0);
+  const blocks = oben.map(([gruppe, betrag_cent]) => ({
+    gruppe, betrag_cent, anteil: Math.round((betrag_cent / gesamt) * 1000) / 10,
+  }));
+  if (rest > 0) {
+    blocks.push({ gruppe: "Sonstige", betrag_cent: rest, anteil: Math.round((rest / gesamt) * 1000) / 10 });
+  }
+  return blocks;
+}

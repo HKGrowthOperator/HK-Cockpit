@@ -114,3 +114,35 @@ Das System bereitet die Buchhaltung auf und macht sie prüfbar — es ersetzt
 **nicht** den Steuerberater. Die Umsatzsteuer-Voranmeldung wird berechnet und
 angezeigt, aber nicht an ELSTER übermittelt. Jahresabschluss, Abschreibungs-
 pläne und Bilanz bleiben Sache der Kanzlei; dafür gibt es den DATEV-Export.
+
+## Steueraufteilung — warum eine Zeile drei Bewegungen ergibt
+
+Eine Buchung wird als **ein** Satz erfasst: Bruttobetrag plus Steuerschlüssel,
+genau wie bei DATEV mit dem BU-Schlüssel. Für GuV, Bilanz und Voranmeldung
+wird daraus intern der Dreisatz gebildet:
+
+```
+Eingabe:  Ausgangsrechnung 1.190 € brutto, 19 %
+Wirkung:  Forderungen        1.190 €  (Soll)
+          Erlöse             1.000 €  (Haben)
+          Umsatzsteuer          190 €  (Haben)
+```
+
+Ohne diese Aufteilung stünde der Bruttobetrag im Erlös — die GuV wäre um die
+Umsatzsteuer zu hoch und das Steuerkonto bliebe leer. Die Aufteilung passiert
+zentral in `lib/accounting/salden.ts`; die Journal-Zeile selbst bleibt schlank
+und exportierbar.
+
+Bei Reverse Charge (§ 13b, EU-Erwerb) wird die Steuer zusätzlich gebucht — als
+Schuld *und* als Vorsteuer. Beides hebt sich auf, der Aufwand bleibt voll stehen.
+
+## Tests
+
+```bash
+cd web && npm run test:buchhaltung
+```
+
+Prüft ohne Datenbank: Betragsformate (deutsch/englisch), Umsatzsteuer inkl.
+§ 13b, die sechs Buchungssätze, Validierung, Steueraufteilung, GuV,
+Summen/Salden-Ausgleich, Voranmeldung, Bank-CSV mit Zahlungsabgleich,
+DATEV-Export und Kontierungsvorschläge.
