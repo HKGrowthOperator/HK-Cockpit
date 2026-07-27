@@ -31,6 +31,9 @@ services:
       - N8N_PROTOCOL=http
       - N8N_SECURE_COOKIE=false
       - N8N_PROXY_HOPS=1
+      # Erlaubt Nodes den Zugriff auf $env — die Workflows holen sich damit
+      # Rueckkanal-Adresse und Secret zur Laufzeit, statt sie einzubacken.
+      - N8N_BLOCK_ENV_ACCESS_IN_NODE=false
       - GENERIC_TIMEZONE=Europe/Berlin
       - TZ=Europe/Berlin
       # Rueckkanal zum Cockpit (die Workflows melden ihre Laeufe dorthin).

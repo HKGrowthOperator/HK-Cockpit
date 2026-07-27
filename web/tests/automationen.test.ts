@@ -60,5 +60,23 @@ const fehlend = dateien.map((f) => f.replace(/\.json$/, "")).filter((id) => !kat
 ok("jede Workflow-Datei hat einen Katalog-Eintrag", fehlend.length === 0, fehlend.join(", "));
 ok("jeder Katalog-Eintrag ist startbar", katalog.every((a: { id: string }) => istStartbar(a.id)));
 
-console.log(`\n${fehler === 0 ? "Alle Prüfungen bestanden." : `${fehler} Prüfung(en) fehlgeschlagen.`}\n`);
-process.exit(fehler === 0 ? 0 : 1);
+// ── Rückkanal: keine eingebackenen Adressen oder Secrets ──
+{
+  console.log("\n── Rückkanal kommt zur Laufzeit ──");
+  const dir2 = "../n8n-workflows";
+  let ausEnv = 0, hartkodiert = 0;
+  for (const f of readdirSync(dir2).filter((x) => x.endsWith(".json"))) {
+    const roh = readFileSync(`${dir2}/${f}`, "utf8");
+    if (roh.includes("$env.COCKPIT_LOG_URL") && roh.includes("$env.AUTOMATION_INGEST_SECRET")) ausEnv++;
+    // Ein Secret-Wert im Klartext waere ein Leck — im Repo darf nur der Ausdruck stehen.
+    if (/"x-automation-secret"\s*:\s*"[^"$]/.test(roh)) hartkodiert++;
+  }
+  ok("Adresse und Secret aus $env", ausEnv === 31, String(ausEnv));
+  ok("kein Secret im Klartext", hartkodiert === 0, String(hartkodiert));
+
+  const compose = readFileSync("../n8n-standalone/docker-compose.yaml", "utf8");
+  ok("n8n erlaubt Env-Zugriff", compose.includes("N8N_BLOCK_ENV_ACCESS_IN_NODE=false"));
+
+  console.log(`\n${fehler === 0 ? "Alle Prüfungen bestanden." : `${fehler} Prüfung(en) fehlgeschlagen.`}\n`);
+  process.exit(fehler === 0 ? 0 : 1);
+}

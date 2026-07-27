@@ -37,11 +37,26 @@ In Coolify beim **HK-Cockpit** unter *Environment Variables*:
 
 | Name | Wert |
 |---|---|
-| `N8N_BASE_URL` | Adresse der n8n-Ressource, z. B. `http://n8n:5678` im selben Docker-Netz oder die öffentliche Domain |
+| `N8N_BASE_URL` | Adresse der n8n-Ressource (die, unter der du n8n im Browser öffnest) |
 | `AUTOMATION_INGEST_SECRET` | dasselbe Secret wie in n8n (schützt Hin- und Rückweg) |
 
 Danach **Redeploy**. Fehlt `N8N_BASE_URL`, bleibt der Knopf aus und die Seite
 erklärt genau das — sie bricht nicht ab.
+
+### 1b. n8n den Rückweg beibringen
+
+Damit ein Workflow seinen Lauf zurückmelden kann, braucht **n8n** zwei
+Variablen (Coolify → n8n-Ressource → *Environment Variables*):
+
+| Name | Wert |
+|---|---|
+| `COCKPIT_LOG_URL` | `<cockpit-adresse>/api/automations/log` |
+| `AUTOMATION_INGEST_SECRET` | derselbe Wert wie im Cockpit |
+
+**Warum als Variable und nicht fest im Workflow?** Beides wird zur Laufzeit
+per `$env` gelesen. Eine eingebackene Adresse zeigt nach jedem Umzug ins Leere,
+und ein eingebackenes Secret läge im Repository. Voraussetzung ist
+`N8N_BLOCK_ENV_ACCESS_IN_NODE=false` — steht bereits im mitgelieferten Compose.
 
 ### 2. Workflows in n8n einspielen
 

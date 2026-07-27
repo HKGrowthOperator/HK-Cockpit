@@ -7,10 +7,16 @@
 // Workflow von aussen nicht ausloesen - die n8n-API kann Workflows nicht starten.
 // Ausgabe: ../n8n-workflows/<id>.json  (relativ zum Repo-Root)
 //
+// Adresse des Rueckkanals und das Secret werden NICHT eingebacken, sondern zur
+// Laufzeit aus den n8n-Umgebungsvariablen gelesen (COCKPIT_LOG_URL,
+// AUTOMATION_INGEST_SECRET). Zwei Gruende:
+//   1. Die Adresse aendert sich beim Umzug/Redeploy - eingebacken zeigt sie ins Leere.
+//   2. Das Secret gehoert nicht in ein Repository.
+// Voraussetzung: n8n laeuft mit N8N_BLOCK_ENV_ACCESS_IN_NODE=false (siehe
+// n8n-standalone/docker-compose.yaml), sonst sieht ein Node keine Env-Variablen.
+//
 // Nutzung (aus web/):
-//   lokal (Dev-Server auf dem Host):   node scripts/gen-n8n-workflows.mjs
-//   Server (Compose-Netz "hk-cockpit"): COCKPIT_LOG_URL=http://web:3000/api/automations/log \
-//     AUTOMATION_INGEST_SECRET=<secret> node scripts/gen-n8n-workflows.mjs
+//   node scripts/gen-n8n-workflows.mjs
 // Danach in n8n importieren:
 //   docker exec hk-n8n n8n import:workflow --separate --input=<pfad>
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
@@ -23,11 +29,11 @@ const repoRoot = resolve(webRoot, "..");
 const outDir = resolve(repoRoot, "n8n-workflows");
 mkdirSync(outDir, { recursive: true });
 
-// Ziel-URL des Rückkanals. Lokal: App auf dem Host. Server: Servicename im Compose-Netz.
+// n8n-Ausdruecke: werden erst beim Lauf ausgewertet, nicht beim Erzeugen.
+// Fallback auf den lokalen Dev-Server, falls die Variable in n8n fehlt.
 const LOG_URL =
-  process.env.COCKPIT_LOG_URL ?? "http://host.docker.internal:3001/api/automations/log";
-// Auf dem Server Pflicht (Endpoint ist öffentlich erreichbar) — wird als Header mitgesendet.
-const INGEST_SECRET = process.env.AUTOMATION_INGEST_SECRET ?? "";
+  '={{ $env.COCKPIT_LOG_URL || "http://host.docker.internal:3001/api/automations/log" }}';
+const SECRET_HEADER = '={{ { "x-automation-secret": $env.AUTOMATION_INGEST_SECRET || "" } }}';
 
 const automations = JSON.parse(
   readFileSync(resolve(webRoot, "lib/data/automations.json"), "utf8"),
@@ -64,13 +70,9 @@ for (const a of automations) {
     parameters: {
       method: "POST",
       url: LOG_URL,
-      ...(INGEST_SECRET
-        ? {
-            sendHeaders: true,
-            specifyHeaders: "json",
-            jsonHeaders: JSON.stringify({ "x-automation-secret": INGEST_SECRET }),
-          }
-        : {}),
+      sendHeaders: true,
+      specifyHeaders: "json",
+      jsonHeaders: SECRET_HEADER,
       sendBody: true,
       contentType: "json",
       specifyBody: "json",

@@ -55,7 +55,10 @@
     {
       "parameters": {
         "method": "POST",
-        "url": "http://host.docker.internal:3001/api/automations/log",
+        "url": "={{ $env.COCKPIT_LOG_URL || \"http://host.docker.internal:3001/api/automations/log\" }}",
+        "sendHeaders": true,
+        "specifyHeaders": "json",
+        "jsonHeaders": "={{ { \"x-automation-secret\": $env.AUTOMATION_INGEST_SECRET || \"\" } }}",
         "sendBody": true,
         "contentType": "json",
         "specifyBody": "json",
