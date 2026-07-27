@@ -1,6 +1,24 @@
 {
+  "id": "autupselldetect",
   "name": "HK · Upsell-Chancen-Erkennung",
   "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hk/aut-upsell-detect",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "aut-upsell-detect-hook",
+      "name": "Start aus dem Cockpit",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        160,
+        -60
+      ],
+      "webhookId": "aut-upsell-detect"
+    },
     {
       "parameters": {},
       "id": "aut-upsell-detect-manual",
@@ -40,7 +58,7 @@
         "sendBody": true,
         "contentType": "json",
         "specifyBody": "json",
-        "jsonBody": "{\n  \"automation\": \"Upsell-Chancen-Erkennung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+        "jsonBody": "{\n  \"automation\": \"Upsell-Chancen-Erkennung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-upsell-detect\"\n}",
         "options": {}
       },
       "id": "aut-upsell-detect-http",
@@ -54,6 +72,17 @@
     }
   ],
   "connections": {
+    "Start aus dem Cockpit": {
+      "main": [
+        [
+          {
+            "node": "An Cockpit melden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Manuell starten": {
       "main": [
         [
@@ -80,6 +109,5 @@
   "active": false,
   "settings": {
     "executionOrder": "v1"
-  },
-  "tags": []
+  }
 }

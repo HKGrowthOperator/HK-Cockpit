@@ -1,6 +1,24 @@
 {
+  "id": "autsopbuilder",
   "name": "HK · SOP-Builder aus Experten-Interview",
   "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hk/aut-sop-builder",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "aut-sop-builder-hook",
+      "name": "Start aus dem Cockpit",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        160,
+        -60
+      ],
+      "webhookId": "aut-sop-builder"
+    },
     {
       "parameters": {},
       "id": "aut-sop-builder-manual",
@@ -40,7 +58,7 @@
         "sendBody": true,
         "contentType": "json",
         "specifyBody": "json",
-        "jsonBody": "{\n  \"automation\": \"SOP-Builder aus Experten-Interview\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+        "jsonBody": "{\n  \"automation\": \"SOP-Builder aus Experten-Interview\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-sop-builder\"\n}",
         "options": {}
       },
       "id": "aut-sop-builder-http",
@@ -54,6 +72,17 @@
     }
   ],
   "connections": {
+    "Start aus dem Cockpit": {
+      "main": [
+        [
+          {
+            "node": "An Cockpit melden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Manuell starten": {
       "main": [
         [
@@ -80,6 +109,5 @@
   "active": false,
   "settings": {
     "executionOrder": "v1"
-  },
-  "tags": []
+  }
 }

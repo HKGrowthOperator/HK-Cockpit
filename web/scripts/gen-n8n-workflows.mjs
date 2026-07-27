@@ -1,6 +1,10 @@
 // Generiert aus lib/data/automations.json je einen n8n-Workflow (2.x-Format).
-// Jeder Workflow: Manuell-Trigger + Zeitplan-Trigger -> HTTP-Request meldet den
+// Jeder Workflow: Webhook- + Manuell- + Zeitplan-Trigger -> HTTP-Request meldet den
 // Lauf an den Cockpit-Rückkanal (/api/automations/log) => erscheint "live" im Dashboard.
+//
+// Der Webhook ist der Weg für den "Jetzt starten"-Knopf im Cockpit: Die App ruft
+// POST <n8n>/webhook/hk/<automation-id> auf. Ohne Webhook liesse sich ein
+// Workflow von aussen nicht ausloesen - die n8n-API kann Workflows nicht starten.
 // Ausgabe: ../n8n-workflows/<id>.json  (relativ zum Repo-Root)
 //
 // Nutzung (aus web/):
@@ -53,6 +57,7 @@ for (const a of automations) {
     trigger: kind,
     status: "success",
     summary: "Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.",
+    automation_id: a.id,
   };
 
   const httpNode = {
@@ -79,6 +84,23 @@ for (const a of automations) {
     position: [420, 200],
   };
 
+  // Webhook: macht den Workflow von aussen startbar (Knopf im Cockpit).
+  // Pfad ist stabil an die Automations-ID gebunden, damit die App ihn kennt.
+  const webhookNode = {
+    parameters: {
+      httpMethod: "POST",
+      path: `hk/${a.id}`,
+      responseMode: "lastNode",
+      options: {},
+    },
+    id: `${a.id}-hook`,
+    name: "Start aus dem Cockpit",
+    type: "n8n-nodes-base.webhook",
+    typeVersion: 2,
+    position: [160, -60],
+    webhookId: a.id,
+  };
+
   const manualNode = {
     parameters: {},
     id: `${a.id}-manual`,
@@ -98,15 +120,18 @@ for (const a of automations) {
   };
 
   const workflow = {
+    // Feste ID: n8n verlangt sie beim Import, und ein erneuter Import
+    // ueberschreibt damit den vorhandenen Workflow statt ihn zu duplizieren.
+    id: a.id.replace(/[^a-zA-Z0-9]/g, "").slice(0, 16),
     name: `HK · ${a.title}`,
-    nodes: [manualNode, scheduleNode, httpNode],
+    nodes: [webhookNode, manualNode, scheduleNode, httpNode],
     connections: {
+      "Start aus dem Cockpit": { main: [[{ node: "An Cockpit melden", type: "main", index: 0 }]] },
       "Manuell starten": { main: [[{ node: "An Cockpit melden", type: "main", index: 0 }]] },
       "Zeitplan": { main: [[{ node: "An Cockpit melden", type: "main", index: 0 }]] },
     },
     active: false,
     settings: { executionOrder: "v1" },
-    tags: [],
   };
 
   writeFileSync(resolve(outDir, `${a.id}.json`), JSON.stringify(workflow, null, 2));

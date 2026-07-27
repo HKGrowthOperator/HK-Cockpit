@@ -1,7 +1,25 @@
 [
   {
+    "id": "autaccesscheckli",
     "name": "HK · Zugänge- & Assets-Checkliste",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-access-checklist",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-access-checklist-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-access-checklist"
+      },
       {
         "parameters": {},
         "id": "aut-access-checklist-manual",
@@ -41,7 +59,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Zugänge- & Assets-Checkliste\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Zugänge- & Assets-Checkliste\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-access-checklist\"\n}",
           "options": {}
         },
         "id": "aut-access-checklist-http",
@@ -55,6 +73,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -81,12 +110,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autaccesscheckli"
+    }
   },
   {
+    "id": "autcallprep",
     "name": "HK · Sales-Call-Vorbereitung",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-call-prep",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-call-prep-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-call-prep"
+      },
       {
         "parameters": {},
         "id": "aut-call-prep-manual",
@@ -126,7 +172,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Sales-Call-Vorbereitung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Sales-Call-Vorbereitung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-call-prep\"\n}",
           "options": {}
         },
         "id": "aut-call-prep-http",
@@ -140,6 +186,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -166,12 +223,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autcallprep"
+    }
   },
   {
+    "id": "autcontentapprov",
     "name": "HK · Content-Freigabe-Workflow",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-content-approval",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-content-approval-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-content-approval"
+      },
       {
         "parameters": {},
         "id": "aut-content-approval-manual",
@@ -211,7 +285,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Content-Freigabe-Workflow\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Content-Freigabe-Workflow\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-content-approval\"\n}",
           "options": {}
         },
         "id": "aut-content-approval-http",
@@ -225,6 +299,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -251,12 +336,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autcontentapprov"
+    }
   },
   {
+    "id": "autcontentidea",
     "name": "HK · Content aus Gedanken",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-content-idea",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-content-idea-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-content-idea"
+      },
       {
         "parameters": {},
         "id": "aut-content-idea-manual",
@@ -296,7 +398,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Content aus Gedanken\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Content aus Gedanken\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-content-idea\"\n}",
           "options": {}
         },
         "id": "aut-content-idea-http",
@@ -310,6 +412,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -336,12 +449,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autcontentidea"
+    }
   },
   {
+    "id": "autcontentrepurp",
     "name": "HK · Content-Repurposing (1 → viele)",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-content-repurpose",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-content-repurpose-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-content-repurpose"
+      },
       {
         "parameters": {},
         "id": "aut-content-repurpose-manual",
@@ -381,7 +511,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Content-Repurposing (1 → viele)\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Content-Repurposing (1 → viele)\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-content-repurpose\"\n}",
           "options": {}
         },
         "id": "aut-content-repurpose-http",
@@ -395,6 +525,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -421,12 +562,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autcontentrepurp"
+    }
   },
   {
+    "id": "autcsreport",
     "name": "HK · Customer-Success-Monatsbericht",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-cs-report",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-cs-report-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-cs-report"
+      },
       {
         "parameters": {},
         "id": "aut-cs-report-manual",
@@ -467,7 +625,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Customer-Success-Monatsbericht\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Customer-Success-Monatsbericht\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-cs-report\"\n}",
           "options": {}
         },
         "id": "aut-cs-report-http",
@@ -481,6 +639,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -507,12 +676,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autcsreport"
+    }
   },
   {
+    "id": "autdealtoproject",
     "name": "HK · Vertragsabschluss → Projekt anlegen",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-deal-to-project",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-deal-to-project-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-deal-to-project"
+      },
       {
         "parameters": {},
         "id": "aut-deal-to-project-manual",
@@ -552,7 +738,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Vertragsabschluss → Projekt anlegen\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Vertragsabschluss → Projekt anlegen\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-deal-to-project\"\n}",
           "options": {}
         },
         "id": "aut-deal-to-project-http",
@@ -566,6 +752,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -592,12 +789,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autdealtoproject"
+    }
   },
   {
+    "id": "autexecreport",
     "name": "HK · Monatlicher Executive Report",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-exec-report",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-exec-report-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-exec-report"
+      },
       {
         "parameters": {},
         "id": "aut-exec-report-manual",
@@ -638,7 +852,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Monatlicher Executive Report\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Monatlicher Executive Report\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-exec-report\"\n}",
           "options": {}
         },
         "id": "aut-exec-report-http",
@@ -652,6 +866,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -678,12 +903,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autexecreport"
+    }
   },
   {
+    "id": "authealthscore",
     "name": "HK · Customer Health Score",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-health-score",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-health-score-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-health-score"
+      },
       {
         "parameters": {},
         "id": "aut-health-score-manual",
@@ -726,7 +968,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Customer Health Score\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Customer Health Score\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-health-score\"\n}",
           "options": {}
         },
         "id": "aut-health-score-http",
@@ -740,6 +982,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -766,12 +1019,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "authealthscore"
+    }
   },
   {
+    "id": "autinvoicegen",
     "name": "HK · Rechnungserstellung aus Meilenstein",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-invoice-gen",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-invoice-gen-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-invoice-gen"
+      },
       {
         "parameters": {},
         "id": "aut-invoice-gen-manual",
@@ -811,7 +1081,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Rechnungserstellung aus Meilenstein\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Rechnungserstellung aus Meilenstein\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-invoice-gen\"\n}",
           "options": {}
         },
         "id": "aut-invoice-gen-http",
@@ -825,6 +1095,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -851,12 +1132,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autinvoicegen"
+    }
   },
   {
+    "id": "autinvoiceremind",
     "name": "HK · Zahlungserinnerungen",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-invoice-reminders",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-invoice-reminders-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-invoice-reminders"
+      },
       {
         "parameters": {},
         "id": "aut-invoice-reminders-manual",
@@ -896,7 +1194,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Zahlungserinnerungen\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Zahlungserinnerungen\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-invoice-reminders\"\n}",
           "options": {}
         },
         "id": "aut-invoice-reminders-http",
@@ -910,6 +1208,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -936,12 +1245,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autinvoiceremind"
+    }
   },
   {
+    "id": "autkickoff",
     "name": "HK · Kickoff-Planung & Einladung",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-kickoff",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-kickoff-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-kickoff"
+      },
       {
         "parameters": {},
         "id": "aut-kickoff-manual",
@@ -981,7 +1307,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Kickoff-Planung & Einladung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Kickoff-Planung & Einladung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-kickoff\"\n}",
           "options": {}
         },
         "id": "aut-kickoff-http",
@@ -995,6 +1321,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -1021,12 +1358,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autkickoff"
+    }
   },
   {
+    "id": "autkpisync",
     "name": "HK · KPI-Dashboard-Sync ins Cockpit",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-kpi-sync",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-kpi-sync-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-kpi-sync"
+      },
       {
         "parameters": {},
         "id": "aut-kpi-sync-manual",
@@ -1066,7 +1420,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"KPI-Dashboard-Sync ins Cockpit\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"KPI-Dashboard-Sync ins Cockpit\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-kpi-sync\"\n}",
           "options": {}
         },
         "id": "aut-kpi-sync-http",
@@ -1080,6 +1434,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -1106,12 +1471,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autkpisync"
+    }
   },
   {
+    "id": "autleadenrich",
     "name": "HK · Lead-Anreicherung (Firmendaten)",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-lead-enrich",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-lead-enrich-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-lead-enrich"
+      },
       {
         "parameters": {},
         "id": "aut-lead-enrich-manual",
@@ -1151,7 +1533,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Lead-Anreicherung (Firmendaten)\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Lead-Anreicherung (Firmendaten)\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-lead-enrich\"\n}",
           "options": {}
         },
         "id": "aut-lead-enrich-http",
@@ -1165,6 +1547,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -1191,12 +1584,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autleadenrich"
+    }
   },
   {
+    "id": "autleadfollowup",
     "name": "HK · Follow-up-Sequenz für neue Leads",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-lead-followup",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-lead-followup-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-lead-followup"
+      },
       {
         "parameters": {},
         "id": "aut-lead-followup-manual",
@@ -1236,7 +1646,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Follow-up-Sequenz für neue Leads\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Follow-up-Sequenz für neue Leads\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-lead-followup\"\n}",
           "options": {}
         },
         "id": "aut-lead-followup-http",
@@ -1250,6 +1660,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -1276,12 +1697,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autleadfollowup"
+    }
   },
   {
+    "id": "autleadintake",
     "name": "HK · Lead-Eingang & Weiterleitung",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-lead-intake",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-lead-intake-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-lead-intake"
+      },
       {
         "parameters": {},
         "id": "aut-lead-intake-manual",
@@ -1321,7 +1759,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Lead-Eingang & Weiterleitung\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Lead-Eingang & Weiterleitung\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-lead-intake\"\n}",
           "options": {}
         },
         "id": "aut-lead-intake-http",
@@ -1335,6 +1773,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -1361,12 +1810,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autleadintake"
+    }
   },
   {
+    "id": "autleadradar",
     "name": "HK · Gummersbach Lead-Radar",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-lead-radar",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-lead-radar-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-lead-radar"
+      },
       {
         "parameters": {},
         "id": "aut-lead-radar-manual",
@@ -1409,7 +1875,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Gummersbach Lead-Radar\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Gummersbach Lead-Radar\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-lead-radar\"\n}",
           "options": {}
         },
         "id": "aut-lead-radar-http",
@@ -1423,6 +1889,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -1449,12 +1926,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autleadradar"
+    }
   },
   {
+    "id": "autleadreactivat",
     "name": "HK · Reaktivierung kalter & No-Show-Leads",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-lead-reactivation",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-lead-reactivation-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-lead-reactivation"
+      },
       {
         "parameters": {},
         "id": "aut-lead-reactivation-manual",
@@ -1495,7 +1989,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Reaktivierung kalter & No-Show-Leads\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Reaktivierung kalter & No-Show-Leads\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-lead-reactivation\"\n}",
           "options": {}
         },
         "id": "aut-lead-reactivation-http",
@@ -1509,6 +2003,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -1535,12 +2040,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autleadreactivat"
+    }
   },
   {
+    "id": "autleadscoring",
     "name": "HK · Lead-Scoring & Priorisierung",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-lead-scoring",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-lead-scoring-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-lead-scoring"
+      },
       {
         "parameters": {},
         "id": "aut-lead-scoring-manual",
@@ -1580,7 +2102,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Lead-Scoring & Priorisierung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Lead-Scoring & Priorisierung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-lead-scoring\"\n}",
           "options": {}
         },
         "id": "aut-lead-scoring-http",
@@ -1594,6 +2116,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -1620,12 +2153,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autleadscoring"
+    }
   },
   {
+    "id": "autlpaudit",
     "name": "HK · Landingpage-Audit",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-lp-audit",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-lp-audit-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-lp-audit"
+      },
       {
         "parameters": {},
         "id": "aut-lp-audit-manual",
@@ -1665,7 +2215,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Landingpage-Audit\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Landingpage-Audit\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-lp-audit\"\n}",
           "options": {}
         },
         "id": "aut-lp-audit-http",
@@ -1679,6 +2229,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -1705,12 +2266,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autlpaudit"
+    }
   },
   {
+    "id": "autmeetingintel",
     "name": "HK · Meeting Intelligence",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-meeting-intel",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-meeting-intel-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-meeting-intel"
+      },
       {
         "parameters": {},
         "id": "aut-meeting-intel-manual",
@@ -1750,7 +2328,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Meeting Intelligence\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Meeting Intelligence\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-meeting-intel\"\n}",
           "options": {}
         },
         "id": "aut-meeting-intel-http",
@@ -1764,6 +2342,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -1790,12 +2379,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autmeetingintel"
+    }
   },
   {
+    "id": "autonboardingkit",
     "name": "HK · Onboarding-Kit-Generator",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-onboarding-kit",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-onboarding-kit-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-onboarding-kit"
+      },
       {
         "parameters": {},
         "id": "aut-onboarding-kit-manual",
@@ -1835,7 +2441,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Onboarding-Kit-Generator\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Onboarding-Kit-Generator\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-onboarding-kit\"\n}",
           "options": {}
         },
         "id": "aut-onboarding-kit-http",
@@ -1849,6 +2455,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -1875,12 +2492,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autonboardingkit"
+    }
   },
   {
+    "id": "autproposalfollo",
     "name": "HK · Angebots-Follow-up",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-proposal-followup",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-proposal-followup-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-proposal-followup"
+      },
       {
         "parameters": {},
         "id": "aut-proposal-followup-manual",
@@ -1920,7 +2554,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Angebots-Follow-up\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Angebots-Follow-up\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-proposal-followup\"\n}",
           "options": {}
         },
         "id": "aut-proposal-followup-http",
@@ -1934,6 +2568,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -1960,12 +2605,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autproposalfollo"
+    }
   },
   {
+    "id": "autproposalgen",
     "name": "HK · Angebots-Generator",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-proposal-gen",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-proposal-gen-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-proposal-gen"
+      },
       {
         "parameters": {},
         "id": "aut-proposal-gen-manual",
@@ -2005,7 +2667,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Angebots-Generator\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Angebots-Generator\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-proposal-gen\"\n}",
           "options": {}
         },
         "id": "aut-proposal-gen-http",
@@ -2019,6 +2681,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -2045,12 +2718,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autproposalgen"
+    }
   },
   {
+    "id": "autreelpipeline",
     "name": "HK · Reel- & Video-Pipeline",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-reel-pipeline",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-reel-pipeline-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-reel-pipeline"
+      },
       {
         "parameters": {},
         "id": "aut-reel-pipeline-manual",
@@ -2090,7 +2780,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Reel- & Video-Pipeline\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Reel- & Video-Pipeline\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-reel-pipeline\"\n}",
           "options": {}
         },
         "id": "aut-reel-pipeline-http",
@@ -2104,6 +2794,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -2130,12 +2831,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autreelpipeline"
+    }
   },
   {
+    "id": "autseomonitor",
     "name": "HK · SEO-Sichtbarkeits-Monitor",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-seo-monitor",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-seo-monitor-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-seo-monitor"
+      },
       {
         "parameters": {},
         "id": "aut-seo-monitor-manual",
@@ -2178,7 +2896,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"SEO-Sichtbarkeits-Monitor\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"SEO-Sichtbarkeits-Monitor\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-seo-monitor\"\n}",
           "options": {}
         },
         "id": "aut-seo-monitor-http",
@@ -2192,6 +2910,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -2218,12 +2947,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autseomonitor"
+    }
   },
   {
+    "id": "autsocialschedul",
     "name": "HK · Social-Planung & Scheduling",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-social-schedule",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-social-schedule-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-social-schedule"
+      },
       {
         "parameters": {},
         "id": "aut-social-schedule-manual",
@@ -2266,7 +3012,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Social-Planung & Scheduling\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Social-Planung & Scheduling\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-social-schedule\"\n}",
           "options": {}
         },
         "id": "aut-social-schedule-http",
@@ -2280,6 +3026,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -2306,12 +3063,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autsocialschedul"
+    }
   },
   {
+    "id": "autsopbuilder",
     "name": "HK · SOP-Builder aus Experten-Interview",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-sop-builder",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-sop-builder-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-sop-builder"
+      },
       {
         "parameters": {},
         "id": "aut-sop-builder-manual",
@@ -2351,7 +3125,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"SOP-Builder aus Experten-Interview\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"SOP-Builder aus Experten-Interview\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-sop-builder\"\n}",
           "options": {}
         },
         "id": "aut-sop-builder-http",
@@ -2365,6 +3139,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -2391,12 +3176,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autsopbuilder"
+    }
   },
   {
+    "id": "autupselldetect",
     "name": "HK · Upsell-Chancen-Erkennung",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-upsell-detect",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-upsell-detect-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-upsell-detect"
+      },
       {
         "parameters": {},
         "id": "aut-upsell-detect-manual",
@@ -2436,7 +3238,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Upsell-Chancen-Erkennung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Upsell-Chancen-Erkennung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-upsell-detect\"\n}",
           "options": {}
         },
         "id": "aut-upsell-detect-http",
@@ -2450,6 +3252,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -2476,12 +3289,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autupselldetect"
+    }
   },
   {
+    "id": "autwebsitesetup",
     "name": "HK · Website-Projekt-Setup",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-website-setup",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-website-setup-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-website-setup"
+      },
       {
         "parameters": {},
         "id": "aut-website-setup-manual",
@@ -2521,7 +3351,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Website-Projekt-Setup\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Website-Projekt-Setup\",\n  \"trigger\": \"event\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-website-setup\"\n}",
           "options": {}
         },
         "id": "aut-website-setup-http",
@@ -2535,6 +3365,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -2561,12 +3402,29 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autwebsitesetup"
+    }
   },
   {
+    "id": "autweeklyreport",
     "name": "HK · Wochenreport-Erstellung",
     "nodes": [
+      {
+        "parameters": {
+          "httpMethod": "POST",
+          "path": "hk/aut-weekly-report",
+          "responseMode": "lastNode",
+          "options": {}
+        },
+        "id": "aut-weekly-report-hook",
+        "name": "Start aus dem Cockpit",
+        "type": "n8n-nodes-base.webhook",
+        "typeVersion": 2,
+        "position": [
+          160,
+          -60
+        ],
+        "webhookId": "aut-weekly-report"
+      },
       {
         "parameters": {},
         "id": "aut-weekly-report-manual",
@@ -2609,7 +3467,7 @@
           "sendBody": true,
           "contentType": "json",
           "specifyBody": "json",
-          "jsonBody": "{\n  \"automation\": \"Wochenreport-Erstellung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+          "jsonBody": "{\n  \"automation\": \"Wochenreport-Erstellung\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-weekly-report\"\n}",
           "options": {}
         },
         "id": "aut-weekly-report-http",
@@ -2623,6 +3481,17 @@
       }
     ],
     "connections": {
+      "Start aus dem Cockpit": {
+        "main": [
+          [
+            {
+              "node": "An Cockpit melden",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      },
       "Manuell starten": {
         "main": [
           [
@@ -2649,7 +3518,6 @@
     "active": false,
     "settings": {
       "executionOrder": "v1"
-    },
-    "id": "autweeklyreport"
+    }
   }
 ]

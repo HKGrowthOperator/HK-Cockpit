@@ -1,6 +1,24 @@
 {
+  "id": "autreelpipeline",
   "name": "HK · Reel- & Video-Pipeline",
   "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hk/aut-reel-pipeline",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "aut-reel-pipeline-hook",
+      "name": "Start aus dem Cockpit",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        160,
+        -60
+      ],
+      "webhookId": "aut-reel-pipeline"
+    },
     {
       "parameters": {},
       "id": "aut-reel-pipeline-manual",
@@ -40,7 +58,7 @@
         "sendBody": true,
         "contentType": "json",
         "specifyBody": "json",
-        "jsonBody": "{\n  \"automation\": \"Reel- & Video-Pipeline\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+        "jsonBody": "{\n  \"automation\": \"Reel- & Video-Pipeline\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-reel-pipeline\"\n}",
         "options": {}
       },
       "id": "aut-reel-pipeline-http",
@@ -54,6 +72,17 @@
     }
   ],
   "connections": {
+    "Start aus dem Cockpit": {
+      "main": [
+        [
+          {
+            "node": "An Cockpit melden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Manuell starten": {
       "main": [
         [
@@ -80,6 +109,5 @@
   "active": false,
   "settings": {
     "executionOrder": "v1"
-  },
-  "tags": []
+  }
 }

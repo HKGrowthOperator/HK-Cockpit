@@ -1,6 +1,24 @@
 {
+  "id": "autseomonitor",
   "name": "HK · SEO-Sichtbarkeits-Monitor",
   "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hk/aut-seo-monitor",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "aut-seo-monitor-hook",
+      "name": "Start aus dem Cockpit",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        160,
+        -60
+      ],
+      "webhookId": "aut-seo-monitor"
+    },
     {
       "parameters": {},
       "id": "aut-seo-monitor-manual",
@@ -43,7 +61,7 @@
         "sendBody": true,
         "contentType": "json",
         "specifyBody": "json",
-        "jsonBody": "{\n  \"automation\": \"SEO-Sichtbarkeits-Monitor\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+        "jsonBody": "{\n  \"automation\": \"SEO-Sichtbarkeits-Monitor\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-seo-monitor\"\n}",
         "options": {}
       },
       "id": "aut-seo-monitor-http",
@@ -57,6 +75,17 @@
     }
   ],
   "connections": {
+    "Start aus dem Cockpit": {
+      "main": [
+        [
+          {
+            "node": "An Cockpit melden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Manuell starten": {
       "main": [
         [
@@ -83,6 +112,5 @@
   "active": false,
   "settings": {
     "executionOrder": "v1"
-  },
-  "tags": []
+  }
 }

@@ -1,6 +1,24 @@
 {
+  "id": "autleadreactivat",
   "name": "HK · Reaktivierung kalter & No-Show-Leads",
   "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hk/aut-lead-reactivation",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "aut-lead-reactivation-hook",
+      "name": "Start aus dem Cockpit",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        160,
+        -60
+      ],
+      "webhookId": "aut-lead-reactivation"
+    },
     {
       "parameters": {},
       "id": "aut-lead-reactivation-manual",
@@ -41,7 +59,7 @@
         "sendBody": true,
         "contentType": "json",
         "specifyBody": "json",
-        "jsonBody": "{\n  \"automation\": \"Reaktivierung kalter & No-Show-Leads\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+        "jsonBody": "{\n  \"automation\": \"Reaktivierung kalter & No-Show-Leads\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-lead-reactivation\"\n}",
         "options": {}
       },
       "id": "aut-lead-reactivation-http",
@@ -55,6 +73,17 @@
     }
   ],
   "connections": {
+    "Start aus dem Cockpit": {
+      "main": [
+        [
+          {
+            "node": "An Cockpit melden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Manuell starten": {
       "main": [
         [
@@ -81,6 +110,5 @@
   "active": false,
   "settings": {
     "executionOrder": "v1"
-  },
-  "tags": []
+  }
 }

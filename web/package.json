@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:buchhaltung": "tsx tests/buchhaltung.test.ts"
+    "test:buchhaltung": "tsx tests/buchhaltung.test.ts",
+    "test:automationen": "tsx tests/automationen.test.ts",
+    "test": "npm run test:buchhaltung && npm run test:automationen"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.100.1",

@@ -1,6 +1,24 @@
 {
+  "id": "autleadenrich",
   "name": "HK · Lead-Anreicherung (Firmendaten)",
   "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hk/aut-lead-enrich",
+        "responseMode": "lastNode",
+        "options": {}
+      },
+      "id": "aut-lead-enrich-hook",
+      "name": "Start aus dem Cockpit",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        160,
+        -60
+      ],
+      "webhookId": "aut-lead-enrich"
+    },
     {
       "parameters": {},
       "id": "aut-lead-enrich-manual",
@@ -40,7 +58,7 @@
         "sendBody": true,
         "contentType": "json",
         "specifyBody": "json",
-        "jsonBody": "{\n  \"automation\": \"Lead-Anreicherung (Firmendaten)\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\"\n}",
+        "jsonBody": "{\n  \"automation\": \"Lead-Anreicherung (Firmendaten)\",\n  \"trigger\": \"schedule\",\n  \"status\": \"success\",\n  \"summary\": \"Lauf gemeldet — Workflow-Skelett aktiv; echte Tool-Aktionen folgen.\",\n  \"automation_id\": \"aut-lead-enrich\"\n}",
         "options": {}
       },
       "id": "aut-lead-enrich-http",
@@ -54,6 +72,17 @@
     }
   ],
   "connections": {
+    "Start aus dem Cockpit": {
+      "main": [
+        [
+          {
+            "node": "An Cockpit melden",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
     "Manuell starten": {
       "main": [
         [
@@ -80,6 +109,5 @@
   "active": false,
   "settings": {
     "executionOrder": "v1"
-  },
-  "tags": []
+  }
 }

@@ -45,6 +45,9 @@ services:
       NODE_ENV: production
       # Ablage der Buchhaltungsbelege (GoBD: unveränderbar aufbewahren).
       BELEG_PFAD: /data/belege
+      # Adresse der n8n-Instanz — nötig für den "Jetzt starten"-Knopf bei den
+      # Automationen. Ohne Wert bleibt der Knopf aus (mit Hinweis in der App).
+      N8N_BASE_URL: ${N8N_BASE_URL:-}
       # KI-Assistent — OPTIONAL. Ohne Schlüssel läuft das Dashboard normal,
       # nur Chat-Assistent + Drive-Import sind deaktiviert.
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}

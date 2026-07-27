@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ModuleCard } from "@/components/cards";
 import { EntityForm } from "@/components/entity-form";
+import { AutomationStart } from "@/components/automation-start";
 import { saveItem, removeItem } from "@/app/actions";
 import type { CardModel } from "@/lib/data/types";
 import type { Field } from "@/lib/modules";
@@ -18,6 +19,9 @@ export function ModuleView({
   fields,
   items,
   min = "340px",
+  /** true = Karten bekommen zusätzlich einen „Jetzt starten"-Knopf
+   *  (nur sinnvoll im Automations-Modul). */
+  startbar = false,
 }: {
   module: string;
   path: string;
@@ -25,6 +29,7 @@ export function ModuleView({
   fields: Field[];
   items: ViewItem[];
   min?: string;
+  startbar?: boolean;
 }) {
   const router = useRouter();
   const [q, setQ] = useState("");
@@ -91,6 +96,12 @@ export function ModuleView({
               model={it.card}
               actions={
                 <>
+                  {startbar && typeof it.values.id === "string" && (
+                    <AutomationStart
+                      automationId={it.values.id}
+                      titel={String(it.values.title ?? it.card.title)}
+                    />
+                  )}
                   <button
                     type="button"
                     onClick={() => setEditing({ mode: "edit", item: it })}
