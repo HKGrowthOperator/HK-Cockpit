@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { BankImport } from "@/components/buchhaltung/bank-import";
+import { BankBuchen } from "@/components/buchhaltung/bank-buchen";
 import { ladeBankUmsaetze } from "@/lib/accounting/db";
 import { ordneZu, type OffeneRechnung } from "@/lib/accounting/bank-csv";
 import { formatCent } from "@/lib/accounting/buchen";
@@ -47,6 +48,8 @@ export default async function Page() {
       </div>
 
       <BankImport vorschlaege={vorschlaege} />
+
+      <BankBuchen offen={offen.length} />
 
       <Card>
         <CardHeader>
