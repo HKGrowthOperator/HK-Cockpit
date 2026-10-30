@@ -1,13 +1,25 @@
-import { cookies } from "next/headers";
-import { verifySession, SESSION_COOKIE } from "@/lib/auth";
 import { AppShell } from "@/components/app-shell";
+import { aktuellerNutzer } from "@/lib/zentrale/nutzer";
+import { ladeApps } from "@/lib/zentrale/apps";
+import { ausgangZahlen } from "@/lib/zentrale/mail/ausgang";
+import { navigation, palettenEintraege } from "@/lib/zentrale/navigation";
 
-// Shell for the whole OS: sidebar + topbar around every module page.
+// Shell für das ganze Cockpit: Seitenleiste, Kopfzeile, Befehlspalette.
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await verifySession((await cookies()).get(SESSION_COOKIE)?.value);
-  return <AppShell email={session?.email}>{children}</AppShell>;
+  const [nutzer, apps, mails] = await Promise.all([
+    aktuellerNutzer().catch(() => null),
+    ladeApps().catch(() => []),
+    ausgangZahlen().catch(() => null),
+  ]);
+  const offen = (mails?.wartet ?? 0) + (mails?.entwurf ?? 0) + (mails?.fehler ?? 0);
+  const nav = navigation(apps, offen);
+  return (
+    <AppShell name={nutzer?.name} rolle={nutzer?.rolle} nav={nav} palette={palettenEintraege(apps, nav)}>
+      {children}
+    </AppShell>
+  );
 }

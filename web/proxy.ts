@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { verifySession, SESSION_COOKIE } from "@/lib/auth";
 
 // Schützt die gesamte App: ohne gültige Sitzung geht es zurück zum Login.
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   const session = await verifySession(req.cookies.get(SESSION_COOKIE)?.value);
   if (!session) {
     const url = req.nextUrl.clone();
@@ -22,6 +22,7 @@ export async function middleware(req: NextRequest) {
 
 export const config = {
   // Alles abdecken AUSSER: Login-Seite, Login-API, Automations-Rückkanal,
+  // Ereignis-Eingang und Takt der Zentrale (eigene Signatur), Health,
   // Next-interne Pfade, Favicon.
-  matcher: ["/((?!login|api/login|api/automations/log|_next/static|_next/image|favicon.ico).*)"],
+  matcher: ["/((?!login|api/login|api/automations/log|api/ereignisse|api/zentrale/takt|api/zentrale/health|_next/static|_next/image|favicon.ico).*)"],
 };

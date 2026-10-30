@@ -5,50 +5,25 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { LogoutButton } from "@/components/logout-button";
+import { Befehlspalette, PalettenKnopf, type PalettenEintrag } from "@/components/zentrale/befehlspalette";
+import { Meldungen } from "@/components/zentrale/meldungen";
+import type { NavGruppe, NavEintrag } from "@/lib/zentrale/navigation";
 
-type NavItem = { href: string; label: string; icon: string; external?: boolean };
-type NavGroup = { group: string; items: NavItem[] };
-
-const NAV: NavGroup[] = [
-  { group: "Start", items: [{ href: "/", label: "Übersicht", icon: "wall" }] },
-  { group: "Intelligenz", items: [
-    { href: "/team", label: "Agenten-Team", icon: "team" },
-    { href: "/bibliothek", label: "Bibliothek", icon: "library" },
-    { href: "/assistent", label: "Assistent", icon: "spark" },
-    { href: "/ai-intelligence", label: "AI Intelligence", icon: "brain" },
-  ] },
-  { group: "Betrieb", items: [
-    { href: "/sops", label: "SOPs", icon: "list" },
-    { href: "/kundenbedienung", label: "Kundenbedienung", icon: "users" },
-    { href: "/rechnungen", label: "Rechnungen", icon: "euro" },
-    { href: "/buchhaltung", label: "Buchhaltung", icon: "euro" },
-    { href: "/berichte", label: "Berichte", icon: "report" },
-    { href: "/automation", label: "Automation", icon: "bolt" },
-  ] },
-  { group: "Wachstum", items: [
-    { href: "/lead-radar", label: "Lead-Radar", icon: "radar" },
-    { href: "/konzepte", label: "Konzepte", icon: "bulb" },
-    { href: "/webseiten", label: "Webseiten", icon: "globe" },
-  ] },
-  { group: "System", items: [
-    { href: "/einstellungen", label: "Einstellungen", icon: "cog" },
-    { href: "/drive", label: "Google Drive", icon: "drive" },
-    { href: "http://localhost:5678", label: "n8n (Automationen)", icon: "flow", external: true },
-  ] },
-];
-
-const ALL_ITEMS = NAV.flatMap((g) => g.items);
-
-function titleFor(pathname: string): string {
-  const match = ALL_ITEMS.filter((i) => !i.external)
+function titleFor(nav: NavGruppe[], pathname: string): string {
+  const match = nav.flatMap((g) => g.items).filter((i) => !i.extern)
     .filter((i) => (i.href === "/" ? pathname === "/" : pathname.startsWith(i.href)))
     .sort((a, b) => b.href.length - a.href.length)[0];
-  return match?.label ?? "Command Center";
+  return match?.label ?? "Cockpit";
 }
 
 function Icon({ name }: { name: string }) {
-  const common = { width: 18, height: 18, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const };
+  const common = { width: 18, height: 18, viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: 2, strokeLinecap: "round" as const, strokeLinejoin: "round" as const, "aria-hidden": true };
   const paths: Record<string, React.ReactNode> = {
+    baum: <><path d="M12 22v-8" /><path d="M12 14c-4 0-7-2.5-7-6a5 5 0 0 1 4-4.9A4 4 0 0 1 12 2a4 4 0 0 1 3 1.1A5 5 0 0 1 19 8c0 3.5-3 6-7 6z" /><path d="M9 22h6" /></>,
+    puls: <><path d="M3 12h4l3-8 4 16 3-8h4" /></>,
+    mail: <><rect x="3" y="5" width="18" height="14" rx="2" /><path d="m3 7 9 6 9-6" /></>,
+    buch: <><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V3H6.5A2.5 2.5 0 0 0 4 5.5z" /><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5" /></>,
+    pfeil: <><path d="M7 17 17 7M8 7h9v9" /></>,
     wall: <><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M3 9h18M9 9v12M3 15h6" /></>,
     brain: <><path d="M12 5a3 3 0 0 0-3 3 3 3 0 0 0-1 5.8V17a2 2 0 0 0 4 0V5z" /><path d="M12 5a3 3 0 0 1 3 3 3 3 0 0 1 1 5.8V17a2 2 0 0 1-4 0" /></>,
     spark: <><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M18 6l-2.5 2.5M8.5 15.5 6 18" /></>,
@@ -69,48 +44,55 @@ function Icon({ name }: { name: string }) {
   return <svg {...common}>{paths[name] ?? null}</svg>;
 }
 
-export function AppShell({ email, children }: { email?: string; children: React.ReactNode }) {
+function Eintrag({ i, aktiv, schliessen }: { i: NavEintrag; aktiv: boolean; schliessen: () => void }) {
+  const klasse = cn(
+    "flex items-center gap-3 rounded-md px-3 py-1.5 text-sm transition-colors",
+    aktiv ? "bg-sidebar-accent text-sidebar-accent-foreground font-semibold" : "text-[#efebe1]/75 hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground",
+  );
+  const inhalt = (
+    <>
+      <Icon name={i.icon} />
+      <span className="flex-1">{i.label}</span>
+      {i.zahl ? <span className="bg-gold rounded-full px-1.5 text-xs font-semibold text-[#2e3a2a] tabular-nums">{i.zahl}</span> : null}
+    </>
+  );
+  return i.extern ? (
+    <a href={i.href} target="_blank" rel="noopener noreferrer" className={klasse}>{inhalt}</a>
+  ) : (
+    <Link href={i.href} onClick={schliessen} className={klasse} aria-current={aktiv ? "page" : undefined}>{inhalt}</Link>
+  );
+}
+
+export function AppShell({
+  name, rolle, nav, palette, children,
+}: {
+  name?: string; rolle?: "gf" | "team"; nav: NavGruppe[]; palette: PalettenEintrag[]; children: React.ReactNode;
+}) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const isActive = (i: NavItem) => (i.href === "/" ? pathname === "/" : pathname.startsWith(i.href));
+  const isActive = (i: NavEintrag) => !i.extern && (i.href === "/" ? pathname === "/" : pathname.startsWith(i.href));
 
   return (
     <div className="flex min-h-screen">
-      {/* Sidebar */}
       <aside
         className={cn(
-          "bg-sidebar text-sidebar-foreground border-sidebar-border fixed inset-y-0 left-0 z-30 flex w-64 flex-col gap-5 overflow-y-auto border-r p-4 transition-transform md:static md:translate-x-0",
+          "bg-sidebar text-sidebar-foreground border-sidebar-border fixed inset-y-0 left-0 z-30 flex w-60 flex-col gap-4 overflow-y-auto border-r px-3 py-4 transition-transform md:sticky md:top-0 md:h-screen md:translate-x-0",
           open ? "translate-x-0" : "-translate-x-[105%]",
         )}
       >
-        <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-3">
-          <span className="bg-gold grid h-10 w-10 place-items-center rounded-lg font-serif text-base font-bold text-[#2e3a2a]">HK</span>
+        <Link href="/" onClick={() => setOpen(false)} className="flex items-center gap-3 px-2">
+          <span className="bg-gold grid h-9 w-9 place-items-center rounded-lg font-serif text-sm font-bold text-[#2e3a2a]">HK</span>
           <span className="flex flex-col leading-tight">
-            <strong className="font-serif text-base">HK Growth</strong>
+            <strong className="font-serif text-base font-semibold">HK Cockpit</strong>
             <span className="text-xs text-[#efebe1]/55">Verwurzeltes Wachstum</span>
           </span>
         </Link>
 
-        <nav className="flex flex-col gap-1" aria-label="Module">
-          {NAV.map((g) => (
-            <div key={g.group} className="flex flex-col gap-1">
-              <p className="mt-3 mb-1 px-2 text-[11px] font-medium tracking-wider text-[#efebe1]/45 uppercase">{g.group}</p>
-              {g.items.map((i) =>
-                i.external ? (
-                  <a key={i.href} href={i.href} target="_blank" rel="noopener noreferrer"
-                    className="hover:bg-sidebar-accent hover:text-sidebar-accent-foreground flex items-center gap-3 rounded-md px-3 py-2 text-sm text-[#efebe1]/75">
-                    <Icon name={i.icon} /> {i.label}
-                  </a>
-                ) : (
-                  <Link key={i.href} href={i.href} onClick={() => setOpen(false)}
-                    className={cn(
-                      "flex items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors",
-                      isActive(i) ? "bg-sidebar-accent text-sidebar-accent-foreground font-semibold" : "text-[#efebe1]/75 hover:bg-sidebar-accent/60 hover:text-sidebar-accent-foreground",
-                    )}>
-                    <Icon name={i.icon} /> {i.label}
-                  </Link>
-                ),
-              )}
+        <nav className="flex flex-col gap-0.5" aria-label="Bereiche">
+          {nav.filter((g) => g.items.length).map((g) => (
+            <div key={g.gruppe} className="flex flex-col gap-0.5">
+              <p className="mt-3 mb-1 px-3 text-xs text-[#efebe1]/45">{g.gruppe}</p>
+              {g.items.map((i) => <Eintrag key={i.href + i.label} i={i} aktiv={isActive(i)} schliessen={() => setOpen(false)} />)}
             </div>
           ))}
         </nav>
@@ -118,18 +100,24 @@ export function AppShell({ email, children }: { email?: string; children: React.
 
       {open && <div className="fixed inset-0 z-20 bg-black/50 md:hidden" onClick={() => setOpen(false)} />}
 
-      {/* Main */}
       <div className="flex min-w-0 flex-1 flex-col">
         <header className="border-border bg-background/85 sticky top-0 z-10 flex items-center gap-3 border-b px-5 py-3 backdrop-blur">
-          <button type="button" aria-label="Navigation" onClick={() => setOpen((v) => !v)}
+          <button type="button" aria-label="Navigation öffnen" onClick={() => setOpen((v) => !v)}
             className="border-border bg-card grid h-9 w-9 place-items-center rounded-md border md:hidden">☰</button>
-          <h1 className="font-serif text-xl font-bold">{titleFor(pathname)}</h1>
+          <h1 className="font-serif text-xl font-semibold">{titleFor(nav, pathname)}</h1>
           <div className="flex-1" />
-          {email && <span className="text-muted-foreground hidden text-xs sm:block">{email}</span>}
+          <PalettenKnopf />
+          {name && (
+            <span className="text-muted-foreground hidden text-xs lg:block">
+              {name}{rolle === "gf" ? ", Geschäftsführung" : ""}
+            </span>
+          )}
           <LogoutButton />
         </header>
         <main className="mx-auto w-full max-w-7xl flex-1 px-5 py-6">{children}</main>
       </div>
+      <Befehlspalette eintraege={palette} />
+      <Meldungen />
     </div>
   );
 }

@@ -35,6 +35,7 @@ export default async function Page() {
       invoice_id: inv.invoice_id,
       company: inv.company,
       customer_name: inv.customer_name,
+      email: inv.email,
       stage: msg!.stage,
       stageLabel: STAGE_THRESHOLDS[msg!.stage].label,
       days: msg!.days,

@@ -11,6 +11,7 @@ export type Invoice = {
   id: string;
   invoice_id: string;
   customer_name: string;
+  email: string; // Empfänger für Erinnerungen (optional)
   company: string;
   invoice_date: string; // ISO YYYY-MM-DD
   due_date: string; // ISO YYYY-MM-DD
@@ -171,6 +172,7 @@ export function toInvoice(rec: { id: string; data: Record<string, unknown> }): I
     id: rec.id,
     invoice_id: s(d.invoice_id) || rec.id.slice(0, 8),
     customer_name: s(d.customer_name),
+    email: s(d.email),
     company: s(d.company),
     invoice_date: s(d.invoice_date),
     due_date: s(d.due_date),

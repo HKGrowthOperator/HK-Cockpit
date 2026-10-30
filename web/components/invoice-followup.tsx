@@ -1,12 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
+import { mailAusRechnung } from "@/lib/zentrale/aktionen";
 
 export type FollowupItem = {
   id: string;
   invoice_id: string;
   company: string;
   customer_name: string;
+  email: string;
   stage: string;
   stageLabel: string;
   days: number;
@@ -43,6 +46,14 @@ function FollowupCard({ item }: { item: FollowupItem }) {
   const [busy, setBusy] = useState(false);
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [an, setAn] = useState(item.email);
+  const [ausgang, setAusgang] = useState<{ ok: boolean; meldung: string } | null>(null);
+
+  async function inAusgang() {
+    setBusy(true);
+    setAusgang(await mailAusRechnung({ rechnung: item.invoice_id, stufe: item.stage, an, betreff: item.subject, text: body }));
+    setBusy(false);
+  }
 
   async function refineWithAI() {
     setBusy(true);
@@ -117,6 +128,30 @@ function FollowupCard({ item }: { item: FollowupItem }) {
         >
           {busy ? "Verfeinere…" : "Mit KI verfeinern"}
         </button>
+      </div>
+
+      <div className="border-border mt-3 flex flex-wrap items-center gap-2 border-t pt-3">
+        <input
+          type="email"
+          value={an}
+          onChange={(e) => setAn(e.target.value)}
+          placeholder="E-Mail des Kunden"
+          aria-label="Empfänger der Erinnerung"
+          className="bg-background border-border min-w-0 flex-1 rounded-md border px-2 py-1.5 text-xs"
+        />
+        <button
+          type="button"
+          disabled={busy || !an}
+          onClick={inAusgang}
+          className="border-border hover:bg-secondary rounded-md border px-3 py-1.5 text-xs font-semibold disabled:opacity-50"
+        >
+          In den Mail-Ausgang
+        </button>
+        {ausgang && (
+          <span className={`text-xs ${ausgang.ok ? "text-moss" : "text-rust"}`}>
+            {ausgang.meldung} {ausgang.ok && <Link href="/mail" className="underline">Zum Ausgang</Link>}
+          </span>
+        )}
       </div>
     </div>
   );

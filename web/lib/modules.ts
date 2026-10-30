@@ -50,6 +50,7 @@ export const MODULES: Record<string, ModuleDef> = {
       { name: "invoice_id", label: "Rechnungsnummer", type: "text", required: true },
       { name: "amount", label: "Betrag (EUR)", type: "number", required: true },
       { name: "customer_name", label: "Ansprechpartner", type: "text" },
+      { name: "email", label: "E-Mail für Erinnerungen", type: "text" },
       { name: "company", label: "Firma", type: "text", full: true },
       { name: "invoice_date", label: "Rechnungsdatum (YYYY-MM-DD)", type: "text" },
       { name: "due_date", label: "Fällig am (YYYY-MM-DD)", type: "text", required: true },

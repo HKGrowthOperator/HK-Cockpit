@@ -31,6 +31,8 @@
   --ring: #a2854f;
 
   /* Marken-Akzente */
+  --moss: #5f8466; /* läuft */
+  --stone: #b9b2a1; /* nicht geprüft */
   --gold: #a2854f;
   --gold-ink: #836a39;
   --rust: #a9472f;
@@ -75,6 +77,8 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
+  --color-moss: var(--moss);
+  --color-stone: var(--stone);
   --color-gold: var(--gold);
   --color-gold-ink: var(--gold-ink);
   --color-rust: var(--rust);
@@ -91,8 +95,8 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  --font-serif: Georgia, "Times New Roman", Cambria, serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-serif: var(--font-fraunces), Georgia, "Times New Roman", Cambria, serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Code", "Roboto Mono", Menlo, Consolas, monospace;
 }
 
@@ -103,4 +107,32 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* ── Zentrale ───────────────────────────────────────────────────────────── */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--gold);
+    outline-offset: 2px;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-serif);
+    font-optical-sizing: auto;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Der Baum der Übersicht: eine Linie aus Messing trägt Krone, Stamm, Wurzeln. */
+.baum-stamm {
+  background: linear-gradient(to bottom, transparent, var(--gold) 18%, var(--gold) 82%, transparent);
+}
+
+/* Lebenszeichen: ein einziges, ruhiges Pulsieren für gestörte Apps. */
+@keyframes puls {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--rust) 45%, transparent); }
+  50% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--rust) 0%, transparent); }
+}
+.puls { animation: puls 2.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .puls { animation: none; }
 }
