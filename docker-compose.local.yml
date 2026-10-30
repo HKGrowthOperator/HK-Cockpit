@@ -51,6 +51,10 @@ services:
       DATABASE_URL: postgres://cockpit:localpass@postgres:5432/cockpit
       AUTH_SECRET: local-dev-secret
       NODE_ENV: production
+      COCKPIT_URL: http://localhost:3000
+      N8N_BASE_URL: http://n8n:5678
+      N8N_PUBLIC_URL: http://localhost:5678
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
       # KI-Assistent: trage deinen Schlüssel in eine Datei ".env" im Projektordner ein:
       #   ANTHROPIC_API_KEY=sk-ant-...
       ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}

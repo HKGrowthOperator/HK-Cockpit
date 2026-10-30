@@ -57,6 +57,26 @@ services:
       GOOGLE_CLIENT_SECRET: ${GOOGLE_CLIENT_SECRET:-}
       # Muss EXAKT der öffentlichen Funnel-URL + /api/google/callback entsprechen.
       GOOGLE_REDIRECT_URI: ${GOOGLE_REDIRECT_URI:-}
+      # ── Zentrale (siehe ZENTRALE.md) ─────────────────────────────────────
+      # Öffentliche Adresse des Cockpits — für die Ereignis-Adressen der Apps.
+      COCKPIT_URL: ${COCKPIT_URL:-}
+      # Adresse der n8n-Oberfläche für Link und Statusanzeige (sonst N8N_BASE_URL).
+      N8N_PUBLIC_URL: ${N8N_PUBLIC_URL:-}
+      # Schlüssel für gespeicherte Geheimnisse (SMTP-Passwörter, Ereignis-Geheimnisse).
+      # Fehlt er, wird er aus AUTH_SECRET abgeleitet. Später nicht mehr ändern.
+      ZENTRALE_SECRET_KEY: ${ZENTRALE_SECRET_KEY:-}
+      # Schützt POST /api/zentrale/takt (verzögerte Mail-Automationen).
+      ZENTRALE_TAKT_SECRET: ${ZENTRALE_TAKT_SECRET:-}
+      # GitHub nur lesend; alternativ in der App unter Einstellungen hinterlegen.
+      GITHUB_TOKEN: ${GITHUB_TOKEN:-}
+      # Optionales Postfach aus der Umgebung (gilt, solange in der App keins eingerichtet ist).
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-465}
+      SMTP_SECURE: ${SMTP_SECURE:-true}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+      SMTP_FROM_NAME: ${SMTP_FROM_NAME:-HK Growth Operator}
     volumes:
       # Belegarchiv der Buchhaltung — Named Volume, damit die Dateien einen
       # Neubau des Containers überleben.
